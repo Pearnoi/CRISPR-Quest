@@ -1,21 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import GRNA from './GRNA'; 
 import '../styles/App.css';
+import keyboardSound from '../sound/keyboard.mp3';
 
 export default function SAMD() {
   const [gameStarted, setGameStarted] = useState(false);
-  const [score, setScore] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [speed, setSpeed] = useState(100);
+  const audioRef = useRef(null);
+
+  const fullText = " Sam, a young patient, suffers from sickle cell anemia caused by a single-point mutation in the β-globin (HBB) gene. As a gene scientist, you must correctly use CRISPR-Cas9 to fix this mutation. Are you ready to save Sam?";
+
+useEffect(() => {
+    audioRef.current = new Audio(keyboardSound); 
+  }, []);
+
+useEffect(() => {
+    const timer = setTimeout(() => {
+      if (currentIndex < fullText.length) {
+        setDisplayText(fullText.substring(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+        setSpeed(20);
+
+        if (fullText[currentIndex] !== ' ' && audioRef.current) {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play().catch(error => {
+            console.log("Audio play failed:", error);
+          });
+        }
+      } else if (currentIndex === fullText.length) {
+        if (audioRef.current) {
+          audioRef.current.pause();
+        }
+      }
+    }, speed);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, fullText, speed]);
 
   const handleStartGame = () => {
     setGameStarted(true);
   };
 
-  const handleNextLevel = () => {
-    setScore(prevScore => prevScore + 1);
-  };
-
   if (gameStarted) {
-    return <GRNA onNext={handleNextLevel} setScore={setScore} />;
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    return <GRNA />;
   }
 
   return (
@@ -29,10 +61,8 @@ export default function SAMD() {
 
         <div className='container3'>
           <div className='text-container'>
-              <div className='description'>
-                Sam, a young patient, suffers from sickle cell anemia caused by a single-point 
-                mutation in the β-globin (HBB) gene. As a gene scientist, you must correctly use 
-                CRISPR-Cas9 to fix this mutation. Are you ready to save Sam?
+              <div className='description2'>
+                {displayText}
               </div>
           </div>
           <div className='text-container' style={{ cursor: 'pointer', background: 'red' }}>

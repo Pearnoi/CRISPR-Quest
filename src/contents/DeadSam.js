@@ -1,30 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/App.css';
 import Homepage from './Home'
 import GRNA from './GRNA'
+import backgroundSound from '../sound/monitor.mp3';
 
 export default function DEAD() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameRetry, setGameRetry] = useState(false);
-    
-      const handleStartGame = () => {
-        setGameStarted(true);
-      };
+  const audioRef = useRef(null);
 
-      const handleRetryGame = () => {
-        setGameRetry(true);
-      }
+  useEffect(() => {
+    audioRef.current = new Audio(backgroundSound);
+    audioRef.current.volume = 1; 
+    audioRef.current.play().catch(error => {
+    console.log('Auto-play was prevented:', error);
+    });
     
-      if (gameStarted) {
-        return <Homepage />;
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
       }
+    };
+  }, []);
+    
+  const handleStartGame = () => {
+    setGameStarted(true);
+  };
 
-      if (gameRetry) {
-        return <GRNA />;
+  const handleRetryGame = () => {
+    setGameRetry(true);
+  }
+
+  if (gameStarted) {
+    if (audioRef.current) {
+        audioRef.current.pause();
       }
+    return <Homepage />;
+  }
+
+  if (gameRetry) {
+    if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    return <GRNA />;
+  }
 
   return (
-    <div className='container'>
+    <div>
+    <div className='topper'></div>
+      <div className='container'>
         <div className='header'>
             SAM IS DEAD
         </div>
@@ -55,5 +79,6 @@ export default function DEAD() {
             </button>
         </div>
       </div>
+    </div>
 );
 }

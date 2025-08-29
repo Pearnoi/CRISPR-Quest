@@ -94,8 +94,10 @@ export default function GRNA({ onNext, setScore }) {
       deductHeart();
       showTemporaryNotice(3);
       showTemporaryNotice(1);
-      animate(box1X, 0, { type: "spring", stiffness: 100});
-      animate(box1Y, 0, { type: "spring", stiffness: 100});
+      box1X.stop();
+      box1X.set(0, { type: "spring", stiffness: 100 });
+      box1Y.stop();
+      box1Y.set(0, { type: "spring", stiffness: 100 });
     }
   };
 
@@ -122,11 +124,12 @@ export default function GRNA({ onNext, setScore }) {
     );
 
     if (distance < snapRadius) {
+      console.log("5. SUCCESS: Within snap radius! Should spring back.");
       deductHeart();
       showTemporaryNotice(3);
       showTemporaryNotice(1);
-      animate(box3X, 0, { type: "spring", stiffness: 100});
-      animate(box3Y, 0, { type: "spring", stiffness: 100});
+      box3X.set(0, { type: "spring", stiffness: 50 });
+      box3Y.set(0, { type: "spring", stiffness: 50 });
     }
   };
 
