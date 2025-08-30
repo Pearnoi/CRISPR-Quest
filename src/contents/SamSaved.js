@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/App.css';
 import Homepage from './Home'
+import { useNavigate } from "react-router-dom";
 
 export default function SAVED({score}) {
   const [gameStarted, setGameStarted] = useState(false);
+  const navigate = useNavigate();
   
     const handleStartGame = () => {
       setGameStarted(true);
@@ -34,7 +36,13 @@ export default function SAVED({score}) {
           data-pin-nopin="true"
           />
 
-          <button className='another'>
+          <button
+            className='another'
+            onClick={() => {
+              console.log("Next -> /step4");   // should appear in DevTools console
+              navigate("/step4");
+            }}
+          >
             Next
           </button>
       </div>
