@@ -1,9 +1,11 @@
 // src/contents/Home.js
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CHOICES from './Choices'; 
 import DESCRIPTION from './Description';
 import CRISPR from './CRISPR';
 import INSTRUCTIONS from './Instructions';
+import clickSound from '../sound/click.mp3';
+import backgroundSound from '../sound/home.mp3';
 import '../styles/App.css';
 import { Link } from "react-router-dom";
 
@@ -12,16 +14,86 @@ export default function Homepage() {
   const [description, setDescription] = useState(false);
   const [crispr, setCRISPR] = useState(false);
   const [instructions, setInstructions] = useState(false);
+  const audioRef1 = useRef(null);
+  const audioRef2 = useRef(null);
 
   const handleStartGame = () => setGameStarted(true);
   const handleDescription = () => setDescription(true);
   const handleCRISPR = () => setCRISPR(true);
   const handleInstructions = () => setInstructions(true);
 
-  if (gameStarted) return <CHOICES />;
-  if (description) return <DESCRIPTION />;
-  if (instructions) return <INSTRUCTIONS />;
-  if (crispr) return <CRISPR />;
+  useEffect(() => {
+    audioRef1.current = new Audio(clickSound);
+    audioRef1.current.volume = 1; 
+
+    const backgroundAudio = new Audio(backgroundSound);
+    backgroundAudio.volume = 0.5;
+    backgroundAudio.loop = true;
+    audioRef2.current = backgroundAudio;
+
+    const playMusic = async () => {
+      try {
+        await backgroundAudio.play();
+        console.log('Background music started successfully');
+      } catch (error) {
+        console.log('Autoplay blocked, will play on user interaction:', error);
+        const startMusicOnClick = () => {
+          backgroundAudio.play().catch(e => console.log('Still blocked:', e));
+          document.removeEventListener('click', startMusicOnClick);
+        };
+        document.addEventListener('click', startMusicOnClick, { once: true });
+      }
+    };
+
+    playMusic();
+
+    return () => {
+      if (audioRef2.current) {
+        audioRef2.current.pause();
+        audioRef2.current.currentTime = 0;
+      }
+    };
+  }, []);
+
+    const stopBackgroundMusic = () => {
+      if (audioRef2.current) {
+        audioRef2.current.pause();
+        audioRef2.current.currentTime = 0;
+      }
+    };
+
+
+  const playClickSound = () => {
+    if (audioRef1.current) {
+      audioRef1.current.currentTime = 0;
+      audioRef1.current.play().catch(error => {
+        console.log('Audio play prevented:', error);
+      });
+    }
+  };
+
+  if (gameStarted) {
+    stopBackgroundMusic();
+    playClickSound();
+    return <CHOICES />;
+  } 
+
+  if (description)  {
+    stopBackgroundMusic();
+    playClickSound();
+    return <DESCRIPTION />;
+  }
+  if (instructions) {
+    stopBackgroundMusic();
+    playClickSound();
+    return <INSTRUCTIONS />;
+  }
+
+  if (crispr) {
+    stopBackgroundMusic();
+    playClickSound();
+    return <CRISPR />;
+  } 
 
   return (
     <div className="homepage-container">

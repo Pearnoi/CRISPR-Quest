@@ -14,6 +14,7 @@ export default function GRNA({ onNext, setScore }) {
     const [hasDeductedHeart, setHasDeductedHeart] = useState(false);
     const [isDead, setIsDead] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
+    const [isTimerRunning, setIsTimerRunning] = useState(true);
 
     const box1X = useMotionValue(0);
     const box1Y = useMotionValue(0);
@@ -21,6 +22,14 @@ export default function GRNA({ onNext, setScore }) {
     const box2Y = useMotionValue(0);
     const box3X = useMotionValue(0);
     const box3Y = useMotionValue(0);
+
+    const handleRepairComplete = (success, remainingHearts) => {
+      if (success) {
+        setIsSaved(true);
+      } else if (remainingHearts <= 0) {
+        setIsDead(true);
+      }
+    };
 
      const deductHeart = () => {
          if (!hasDeductedHeart) { 
@@ -188,15 +197,15 @@ export default function GRNA({ onNext, setScore }) {
     }
   }
 
-   useEffect(() => {
-    if (isSaved || isDead) return; 
-
-    const interval = setInterval(() => {
+  useEffect(() => {
+  let interval;
+  if (isTimerRunning) {
+    interval = setInterval(() => {
       setTime(prevTime => prevTime + 1);
     }, 1000);
-    
-    return () => clearInterval(interval);
-  }, [isSaved, isDead]);
+  }
+  return () => clearInterval(interval);
+}, [isTimerRunning]);
 
   const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -209,8 +218,7 @@ export default function GRNA({ onNext, setScore }) {
   }
 
   if (isSaved) {
-    const score = Math.round((hearts * Math.max(0, 300 - time)) / 3);
-    return <CUTTING score={score} />;
+    return <CUTTING hearts={hearts} time={time} setHearts={setHearts} onDead={() => setIsDead(true)} onPauseTimer={(isPaused) => setIsTimerRunning(!isPaused)}/>;
   }
 
     return (

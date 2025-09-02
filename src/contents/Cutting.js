@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import SAVED from './SamSaved'; 
+import RepairTemplateChoice from './RepairTemplateChoice'; 
 import Homepage from './Home';
 import '../styles/App.css';
 
-export default function CUTTING({score}) {
+export default function CUTTING({hearts, time, setHearts, onDead, onPauseTimer}) {
   const [samStarted, setSamStarted] = useState(false);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function CUTTING({score}) {
     return () => clearTimeout(timer);
   }, []);
   if (samStarted) {
-    return <SAVED score={score}/>;
+    return <RepairTemplateChoice hearts={hearts} time={time} setHearts={setHearts} onDead={onDead} onPauseTimer={onPauseTimer}/>;
   }
 
   return (

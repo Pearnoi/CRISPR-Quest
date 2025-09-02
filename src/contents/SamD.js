@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import GRNA from './GRNA'; 
 import '../styles/App.css';
 import keyboardSound from '../sound/keyboard.mp3';
+import clickSound from '../sound/click.mp3';
 
 export default function SAMD() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -9,8 +10,23 @@ export default function SAMD() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [speed, setSpeed] = useState(100);
   const audioRef = useRef(null);
+  const audioRef1 = useRef(null);
 
   const fullText = " Sam, a young patient, suffers from sickle cell anemia caused by a single-point mutation in the β-globin (HBB) gene. As a gene scientist, you must correctly use CRISPR-Cas9 to fix this mutation. Are you ready to save Sam?";
+
+  useEffect(() => {
+      audioRef1.current = new Audio(clickSound);
+      audioRef1.current.volume = 1; 
+    }, []);
+  
+    const playClickSound = () => {
+      if (audioRef1.current) {
+        audioRef1.current.currentTime = 0;
+        audioRef1.current.play().catch(error => {
+          console.log('Audio play prevented:', error);
+        });
+      }
+    };
 
 useEffect(() => {
     audioRef.current = new Audio(keyboardSound); 
@@ -40,8 +56,9 @@ useEffect(() => {
   }, [currentIndex, fullText, speed]);
 
   const handleStartGame = () => {
+    playClickSound();
     setGameStarted(true);
-  };
+  }
 
   if (gameStarted) {
     if (audioRef.current) {
@@ -75,7 +92,6 @@ useEffect(() => {
         src={require('../images/sickle.png')} 
         alt="Sickle Blood Cell"
         data-pin-nopin="true"
-        onClick={handleStartGame}
       />
 
       <img 
@@ -83,7 +99,6 @@ useEffect(() => {
         src={require('../images/sickle.png')} 
         alt="Sickle Blood Cell"
         data-pin-nopin="true"
-        onClick={handleStartGame}
       />
 
       <img 
@@ -91,7 +106,6 @@ useEffect(() => {
         src={require('../images/sickle.png')} 
         alt="Sickle Blood Cell"
         data-pin-nopin="true"
-        onClick={handleStartGame}
       />
     </div>
   );

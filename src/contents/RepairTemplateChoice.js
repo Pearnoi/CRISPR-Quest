@@ -1,6 +1,8 @@
 // src/contents/RepairTemplateChoice.js
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import "../styles/App.css";
+import SAVED from './SamSaved'
+import clickSound from '../sound/click.mp3';
 
 export default function RepairTemplateChoice({
   targetLabel = "Target: HBB (Sickle-cell mutation)",
@@ -13,12 +15,43 @@ export default function RepairTemplateChoice({
   ],
   correctIndex = 0,
   onHome,
-  onNext,   // keep for when player presses Next on SAM IS SAVED
-}) {
+  onNext, 
+  hearts,
+  setHearts,
+  onDead, 
+  onPauseTimer,
+  time }) {
   const options = useMemo(
     () => templates.slice(0, 3).map((txt, i) => ({ txt, i })),
     [templates]
   );
+
+  const formatTime = (totalSeconds) => {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const calculateScore = (hearts, time) => {
+  const baseScore = hearts * 100; 
+  const timeBonus = Math.max(0, 300 - time); 
+  return Math.round(baseScore + timeBonus); 
+  };
+
+  const audioRef1 = useRef(null);
+  useEffect(() => {
+        audioRef1.current = new Audio(clickSound);
+        audioRef1.current.volume = 1; 
+      }, []);
+    
+      const playClickSound = () => {
+        if (audioRef1.current) {
+          audioRef1.current.currentTime = 0; // Reset to start
+          audioRef1.current.play().catch(error => {
+            console.log('Audio play prevented:', error);
+          });
+        }
+      };
 
   const explain = {
     correct:
@@ -33,27 +66,33 @@ export default function RepairTemplateChoice({
   const [showSaved, setShowSaved] = useState(false);
   const [showEmpty, setShowEmpty] = useState(false);
 
+    useEffect(() => {
+    if (onPauseTimer) {
+      onPauseTimer(showSaved); 
+    }
+  }, [showSaved, onPauseTimer]);
+
   const success = selected !== null && selected === correctIndex;
+
+  const handleAnswerSelection = (selectedIndex) => {
+    setSelected(selectedIndex);
+    
+    if (selectedIndex !== correctIndex) {
+      setHearts(prevHearts => {
+        const newHearts = Math.max(0, prevHearts - 1);
+        if (newHearts === 0 && onDead) {
+        onDead();  
+      }
+        return newHearts;
+      });
+    }
+  };
 
   /* ---------- SAM IS SAVED (only if correct + Next clicked) ---------- */
   if (showSaved) {
-    return (
-      <div style={{ textAlign: "center" }}>
-        <div className="header">SAM IS SAVED</div>
-        <p className="score">Repair complete</p>
-
-        <div className="all" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18, marginTop: 10 }}>
-          <button className="another" onClick={onHome}>Home</button>
-          <img
-            className="sam-unhappy-img"
-            src={require("../images/sam-happy.png")}
-            alt="Happy Sam"
-            data-pin-nopin="true"
-          />
-          <button className="another" onClick={onNext}>Next</button>
-        </div>
-      </div>
-    );
+    playClickSound();
+    const score = calculateScore(hearts, time);
+    return <SAVED score={score}/>
   }
 
   /* ---------- Empty placeholder (if wrong + Next clicked) ---------- */
@@ -64,8 +103,18 @@ export default function RepairTemplateChoice({
   /* ---------- Choice screen ---------- */
   return (
     <div style={{ paddingTop: 8 }}>
+
+      <div className='heart-container' style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1000 }}>
+      {Array.from({ length: hearts }, (_, index) => (
+        <div key={index} className={`heart ${index < hearts ? 'active' : 'lost'}`}>❤️</div>
+      ))}
+      </div>
+      <div style={{ position: 'absolute', top: '10px', left: '10px', color: 'white', zIndex: 1000 }}>
+        <h1 style={{ fontSize: '5em' }}>{formatTime(time)}</h1>
+      </div>
+
       <h2 className="header" style={{ fontSize: "3.2rem", lineHeight: 1.05, margin: "0 0 8px 0" }}>
-        Step 4 · Repair Template Choice
+       Repair Template Choice
       </h2>
       <p style={{ margin: "0 0 16px 4px", opacity: 0.85 }}>
         Pick the donor DNA template that restores the original (healthy) sequence after Cas9 cut.
@@ -86,15 +135,26 @@ export default function RepairTemplateChoice({
             <span className="chip">Repair HDR</span>
             <span className="chip info">Template Selection</span>
           </div>
-          <LabelBlock title={targetLabel} value="—" />
-          <LabelBlock title="ORIGINAL (REFERENCE)" value={originalSequence} mono />
-          <LabelBlock title="MUTATED (CURRENT)" value={mutatedSequence} mono />
+          <LabelBlock 
+            title={targetLabel} 
+            value="—" 
+          />
+          <LabelBlock 
+            title="ORIGINAL (REFERENCE)" 
+            value={originalSequence} 
+            mono 
+          />
+          <LabelBlock 
+            title="MUTATED (CURRENT)" 
+            value={mutatedSequence} 
+            mono 
+          />
           <div style={{ flex: 1 }} />
         </div>
 
         {/* RIGHT side */}
         <div style={{ display: "grid", gridTemplateRows: "1fr 8px auto", gap: 0, height: "100%" }}>
-          <div style={{ display: "grid", gap: 14, overflowY: "auto", paddingRight: 2 }}>
+          <div style={{ display: "grid", gap: 14, overflowY: "auto", paddingRight: 2, maxWidth: "600px", maxHeight: '400px' }}>
             {options.map(({ txt, i }) => {
               const picked = selected === i;
               const isCorrect = selected !== null && i === correctIndex;
@@ -102,7 +162,7 @@ export default function RepairTemplateChoice({
               return (
                 <button
                   key={i}
-                  onClick={() => selected === null && setSelected(i)}
+                  onClick={() => selected === null && handleAnswerSelection(i)}
                   disabled={selected !== null}
                   className={"pixel-box" + (isCorrect ? " ok" : "") + (isWrong ? " bad" : "")}
                   style={{ textAlign: "left" }}
@@ -137,13 +197,12 @@ export default function RepairTemplateChoice({
           </div>
 
           <div />
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-            <button className="another" onClick={onHome}>Home</button>
+          <div style={{ display: "flex", justifyContent: "right", gap: 12 }}>
             <button
               className="another"
               disabled={selected === null}
               onClick={() => {
-                if (success) setShowSaved(true);
+                if (hearts > 0) setShowSaved(true);
                 else setShowEmpty(true);
               }}
             >
@@ -192,13 +251,15 @@ export default function RepairTemplateChoice({
   );
 }
 
-function LabelBlock({ title, value, mono }) {
+function LabelBlock({ title, value, mono, hearts, time, formatTime }) {
   return (
-    <div style={{ marginBottom: 10 }}>
-      <div style={{ fontSize: 12, letterSpacing: ".06em", textTransform: "uppercase", opacity: 0.75, marginBottom: 6 }}>
-        {title}
+    <div>
+      <div style={{ marginBottom: 10 }}>
+        <div style={{ fontSize: 12, letterSpacing: ".06em", textTransform: "uppercase", opacity: 0.75, marginBottom: 6 }}>
+          {title}
+        </div>
+        <div className={mono ? "mono" : undefined}>{value}</div>
       </div>
-      <div className={mono ? "mono" : undefined}>{value}</div>
     </div>
   );
 }
