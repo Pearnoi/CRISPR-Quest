@@ -23,21 +23,30 @@ jobs:
       - name: Build with ESLint disabled
         run: DISABLE_ESLINT_PLUGIN=true npm run build
 
-      - name: Deploy to gh-pages branch
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: build/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+          path: build/
+
+      - name: Deploy to gh-pages
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git checkout --orphan gh-pages
           git rm -rf .
           cp -r build/* .
           git add .
           git commit -m "Deploy: ${{ github.sha }}"
           git push origin gh-pages --force
-
-  configure-pages:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configure GitHub Pages
-        run: |
-          echo "Deployment complete! GitHub Pages will automatically deploy from the gh-pages branch."
