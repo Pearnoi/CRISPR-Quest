@@ -15,7 +15,7 @@ export default function CHOICES() {
   
     const playClickSound = () => {
       if (audioRef1.current) {
-        audioRef1.current.currentTime = 0; // Reset to start
+        audioRef1.current.currentTime = 0; 
         audioRef1.current.play().catch(error => {
           console.log('Audio play prevented:', error);
         });
