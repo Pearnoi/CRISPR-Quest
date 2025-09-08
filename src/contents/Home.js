@@ -1,4 +1,3 @@
-// src/contents/Home.js
 import React, { useState, useEffect, useRef } from 'react';
 import CHOICES from './Choices'; 
 import DESCRIPTION from './Description';
@@ -10,6 +9,7 @@ import '../styles/App.css';
 import { Link } from "react-router-dom";
 
 export default function Homepage() {
+  console.log('Homepage component rendered');
   const [gameStarted, setGameStarted] = useState(false);
   const [description, setDescription] = useState(false);
   const [crispr, setCRISPR] = useState(false);
@@ -65,6 +65,7 @@ export default function Homepage() {
 
   const playClickSound = () => {
     if (audioRef1.current) {
+      audioRef1.current.pause();
       audioRef1.current.currentTime = 0;
       audioRef1.current.play().catch(error => {
         console.log('Audio play prevented:', error);

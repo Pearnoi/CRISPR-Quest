@@ -1,7 +1,8 @@
 import '../styles/App.css';
 import DEAD from './DeadSam'
 import CUTTING from './Cutting'
-import React, { useState, useEffect } from 'react';
+import clickSound from '../sound/correct.mp3';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, animate, useTransform } from "framer-motion";
 
 export default function GRNA({ onNext, setScore }) {
@@ -15,6 +16,22 @@ export default function GRNA({ onNext, setScore }) {
     const [isDead, setIsDead] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const [isTimerRunning, setIsTimerRunning] = useState(true);
+    const audioRef1 = useRef(null);
+
+    useEffect(() => {
+      audioRef1.current = new Audio(clickSound);
+      audioRef1.current.volume = 1;
+      audioRef1.current.playbackRate = 2;
+    }, []);
+
+    const playCorrectSound = () => {
+      if (audioRef1.current) {
+        audioRef1.current.currentTime = 0; 
+        audioRef1.current.play().catch(error => {
+          console.log('Audio play prevented:', error);
+        });
+      }
+    };
 
     const box1X = useMotionValue(0);
     const box1Y = useMotionValue(0);
@@ -146,6 +163,7 @@ export default function GRNA({ onNext, setScore }) {
     if (isDead) return;
     if (isBox2Locked) return;
 
+    playCorrectSound();
     console.log("You selected the correct gRNA!!!");
 
     const mutatedRegion = document.querySelector(".mutated-region");

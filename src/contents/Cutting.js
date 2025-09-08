@@ -1,17 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import RepairTemplateChoice from './RepairTemplateChoice'; 
-import Homepage from './Home';
 import '../styles/App.css';
+import backgroundSound from '../sound/scissors.mp3';
 
 export default function CUTTING({hearts, time, setHearts, onDead, onPauseTimer}) {
   const [samStarted, setSamStarted] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
+    audioRef.current = new Audio(backgroundSound);
+    audioRef.current.volume = 1; 
+    audioRef.current.play().catch(error => {
+      console.log('Auto-play was prevented:', error);
+    });
+    
     const timer = setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
       setSamStarted(true);
     }, 5000);
-    return () => clearTimeout(timer);
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      clearTimeout(timer);
+    };
   }, []);
+
   if (samStarted) {
     return <RepairTemplateChoice hearts={hearts} time={time} setHearts={setHearts} onDead={onDead} onPauseTimer={onPauseTimer}/>;
   }

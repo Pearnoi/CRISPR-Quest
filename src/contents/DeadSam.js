@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../styles/App.css';
-import Homepage from './Home'
-import GRNA from './GRNA'
 import backgroundSound from '../sound/monitor.mp3';
+import clickSound from '../sound/click.mp3';
 
 export default function DEAD() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameRetry, setGameRetry] = useState(false);
   const audioRef = useRef(null);
+  const audioRef1 = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     audioRef.current = new Audio(backgroundSound);
@@ -22,27 +24,39 @@ export default function DEAD() {
       }
     };
   }, []);
+
+  useEffect(() => {
+        audioRef1.current = new Audio(clickSound);
+        audioRef1.current.volume = 1; 
+      }, []);
+    
+      const playClickSound = () => {
+        if (audioRef1.current) {
+          audioRef1.current.currentTime = 0;
+          audioRef1.current.play().catch(error => {
+            console.log('Audio play prevented:', error);
+          });
+        }
+      };
     
   const handleStartGame = () => {
-    setGameStarted(true);
+    if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    playClickSound();
+    setTimeout(() => {
+    window.location.href = "/"; 
+  }, 100); 
   };
 
   const handleRetryGame = () => {
-    setGameRetry(true);
-  }
-
-  if (gameStarted) {
     if (audioRef.current) {
         audioRef.current.pause();
       }
-    return <Homepage />;
-  }
-
-  if (gameRetry) {
-    if (audioRef.current) {
-        audioRef.current.pause();
-      }
-    return <GRNA />;
+    playClickSound();
+    setTimeout(() => {
+    window.location.href = "/grna";
+  }, 100);
   }
 
   return (

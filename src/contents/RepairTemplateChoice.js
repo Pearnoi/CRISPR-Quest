@@ -3,6 +3,7 @@ import React, { useMemo, useState, useEffect, useRef } from "react";
 import "../styles/App.css";
 import SAVED from './SamSaved'
 import clickSound from '../sound/click.mp3';
+import correctSound from '../sound/correct.mp3';
 
 export default function RepairTemplateChoice({
   targetLabel = "Target: HBB (Sickle-cell mutation)",
@@ -25,6 +26,22 @@ export default function RepairTemplateChoice({
     () => templates.slice(0, 3).map((txt, i) => ({ txt, i })),
     [templates]
   );
+
+  const audioRef = useRef(null);
+  useEffect(() => {
+        audioRef.current = new Audio(correctSound);
+        audioRef.current.volume = 1;
+        audioRef.current.playbackRate = 2;
+      }, []);
+  
+      const playCorrectSound = () => {
+        if (audioRef.current) {
+          audioRef.current.currentTime = 0; 
+          audioRef.current.play().catch(error => {
+            console.log('Audio play prevented:', error);
+          });
+        }
+      };
 
   const formatTime = (totalSeconds) => {
   const minutes = Math.floor(totalSeconds / 60);
@@ -77,14 +94,16 @@ export default function RepairTemplateChoice({
   const handleAnswerSelection = (selectedIndex) => {
     setSelected(selectedIndex);
     
-    if (selectedIndex !== correctIndex) {
-      setHearts(prevHearts => {
-        const newHearts = Math.max(0, prevHearts - 1);
-        if (newHearts === 0 && onDead) {
+    if (selectedIndex === correctIndex) {
+    playCorrectSound(); 
+  } else {
+    setHearts(prevHearts => {
+      const newHearts = Math.max(0, prevHearts - 1);
+      if (newHearts === 0 && onDead) {
         onDead();  
       }
-        return newHearts;
-      });
+      return newHearts;
+    });
     }
   };
 

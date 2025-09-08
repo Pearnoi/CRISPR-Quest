@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/App.css';
-import Homepage from './Home'
 import { useNavigate } from "react-router-dom";
 import backgroundSound from '../sound/success.mp3';
 import clickSound from '../sound/click.mp3';
@@ -39,15 +38,15 @@ export default function SAVED({score}) {
     };
   }, []);
   
-  const handleStartGame = () => setGameStarted(true);
-
-  if (gameStarted) {
+  const handleStartGame = () => {
     if (audioRef.current) {
         audioRef.current.pause();
       }
     playClickSound();
-    return <Homepage />;
-  }
+    setTimeout(() => {
+    window.location.href = "/"; 
+  }, 100); 
+  };
 
   return (
     <div className='container'>
@@ -73,7 +72,7 @@ export default function SAVED({score}) {
           <button
             className='another'
             onClick={() => {
-              console.log("Next -> /step4");   // should appear in DevTools console
+              console.log("Next -> /step4");   
               navigate("/step4");
             }}
           >
