@@ -45,7 +45,7 @@ export default function DEAD() {
       }
     playClickSound();
     setTimeout(() => {
-    window.location.href = "/"; 
+    window.location.href = "https://pearnoi.github.io/CRISPR-Quest/"; 
   }, 100); 
   };
 
@@ -55,7 +55,7 @@ export default function DEAD() {
       }
     playClickSound();
     setTimeout(() => {
-    window.location.href = "/grna";
+    navigate("/grna");
   }, 100);
   }
 

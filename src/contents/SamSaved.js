@@ -44,7 +44,7 @@ export default function SAVED({score}) {
       }
     playClickSound();
     setTimeout(() => {
-    window.location.href = "/"; 
+    window.location.href = "https://pearnoi.github.io/CRISPR-Quest/"; 
   }, 100); 
   };
 
