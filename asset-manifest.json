@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "./static/css/main.2c5e8c03.css",
+    "main.js": "./static/js/main.f57ff924.js",
+    "static/media/home.mp3": "./static/media/home.5dcdf4d93c6146f258f8.mp3",
+    "static/media/scissors.mp3": "./static/media/scissors.f762ce07e0a61bc1ac7e.mp3",
+    "static/media/background.png": "./static/media/background.7e9bc854d5707b062178.png",
+    "static/media/keyboard.mp3": "./static/media/keyboard.bcafcc2f468e558a96dd.mp3",
+    "static/media/sam-unhappy.png": "./static/media/sam-unhappy.2083bb2033f6b020eb14.png",
+    "static/media/success.mp3": "./static/media/success.0a7b04eac2d105c2634b.mp3",
+    "static/media/sam-happy.png": "./static/media/sam-happy.5de406880178d6ca1d7f.png",
+    "static/media/click.png": "./static/media/click.83f9c0b64f7ada3652c6.png",
+    "static/media/sickle.png": "./static/media/sickle.233424199f2ced339c9e.png",
+    "static/media/halo.png": "./static/media/halo.8c9c0ca16ee5f4f7ac26.png",
+    "static/media/start.png": "./static/media/start.6e4c51edb64e4303833b.png",
+    "static/media/monitor.mp3": "./static/media/monitor.a2a93b9461f413734ad7.mp3",
+    "static/media/scissors.gif": "./static/media/scissors.3edf8fa22e4932ea58ca.gif",
+    "static/media/correct.mp3": "./static/media/correct.ed3894f877249fd39ddf.mp3",
+    "static/media/click.mp3": "./static/media/click.1b79e7a4ee61964ed145.mp3",
+    "index.html": "./index.html",
+    "main.2c5e8c03.css.map": "./static/css/main.2c5e8c03.css.map",
+    "main.f57ff924.js.map": "./static/js/main.f57ff924.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2c5e8c03.css",
+    "static/js/main.f57ff924.js"
+  ]
+}
