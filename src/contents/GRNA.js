@@ -311,11 +311,11 @@ export default function GRNA({ onNext, setScore }) {
           </div>
         </div>
 
-        <div className='dna'> 
-            <div className = "mutated-region">
-            </div>
-        </div>
-        <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT(CCT)GAGGAGAAGTCTGCCGTTACTGCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
+          <div className='dna'> 
+              <div className = "mutated-region">
+              </div>
+          </div>
+          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT(CCT)GAGGAGAAGTCTGCCGTTACTGCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
       </div>
     );
 };
