@@ -2,24 +2,23 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import '../styles/App.css';
 
-export default function SAM() {
+export default function CORN() {
   const navigate = useNavigate();
 
   const handleStartGame = () => {
-    navigate("/sam/description-sam");
+    navigate("/corn/description-corn");
   };
 
   return (
     <div className='container'>
         <div className='header'>
-            Save Sam
+            Save Corn
         </div>
 
         <img 
         className='sam-unhappy-img' 
-        src={require('../images/sam-unhappy.png')} 
-        alt="Unhappy Sam"
-        data-pin-nopin="true"
+        src={require('../images/unhealthy.png')} 
+        alt="Unhealthy Corn"
         onClick={handleStartGame}
       />
     </div>

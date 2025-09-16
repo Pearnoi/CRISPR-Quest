@@ -4,7 +4,7 @@ import '../styles/App.css';
 import keyboardSound from '../sound/keyboard.mp3';
 import clickSound from '../sound/click.mp3';
 
-export default function SAMD() {
+export default function CORND() {
   const navigate = useNavigate();
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,7 +12,7 @@ export default function SAMD() {
   const audioRef = useRef(null);
   const audioRef1 = useRef(null);
 
-  const fullText = " Sam, a young patient, suffers from sickle cell anemia caused by a single-point mutation in the β-globin (HBB) gene. As a gene scientist, you must correctly use CRISPR-Cas9 to fix this mutation. Are you ready to save Sam?";
+  const fullText = "The sun blazes across the dry fields, and a local farmer watches helplessly as her harvest fails. In maize, the gene ZmARGOSE helps plants tolerate drought by reducing their sensitivity to ethylene, a hormone that limits growth under stress. As a gene scientist, you must use CRISPR-Cas9 to edit the promoter region of ZmARGOS8 to boost its expression. Can you feed the future?";
 
   useEffect(() => {
     audioRef1.current = new Audio(clickSound);
@@ -57,24 +57,24 @@ export default function SAMD() {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
-  };
-}, []);
+    };
+    }, []);
 
   const handleStartGame = () => {
     playClickSound();
     if (audioRef.current) {
       audioRef.current.pause();
     }
-    navigate("/grna");
+    navigate("/corn/grna");
   }
 
   return (
     <div className='container2'>
       <img 
         className='sam-desc' 
-        src={require('../images/sam-unhappy.png')} 
+        src={require('../images/unhealthy.png')} 
+        alt="Unhealthy Corn"
         data-pin-nopin="true"
-        alt="Unhappy Sam"
       />
 
       <div className='container3'>
@@ -90,23 +90,16 @@ export default function SAMD() {
 
       <img 
         className='sickle' 
-        src={require('../images/sickle.png')} 
+        src={require('../images/singlecorn.png')} 
+        alt="Single Corn"
         data-pin-nopin="true"
-        alt="Sickle Blood Cell"
       />
 
       <img 
         className='sickle2' 
-        src={require('../images/sickle.png')} 
+        src={require('../images/singlecorn.png')} 
+        alt="Single Corn"
         data-pin-nopin="true"
-        alt="Sickle Blood Cell"
-      />
-
-      <img 
-        className='sickle3' 
-        src={require('../images/sickle.png')} 
-        data-pin-nopin="true"
-        alt="Sickle Blood Cell"
       />
     </div>
   );

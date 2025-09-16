@@ -7,12 +7,12 @@ import correctSound from '../sound/correct.mp3';
 
 export default function RepairTemplateChoice({
   targetLabel = "Target: HBB (Sickle-cell mutation)",
-  originalSequence = "Ref: ...CTG AAG GAC...",
-  mutatedSequence  = "Mut: ...CTG GTG GAC...",
+  originalSequence = "Ref: 5’- GAGGAGAAGTCTGCCGTTAC -3’",
+  mutatedSequence  = "Mut: 5’- GTGGAGAAGTCTGCCGTTAC -3’",
   templates = [
-    "5' ...CTG  AAG  GAC... 3'  (Restores correct codon)",
-    "5' ...CTG  GCG  GAC... 3'  (Introduces silent change)",
-    "5' ...CTG  GTG  GAC... 3'  (Keeps the mutation)",
+    "5' ...CACCTCTTCAGACGGCAATGCT... 3'",
+    "5' ...CTCCTCTTCAGACGGCAATGCT... 3'",
+    "5' ...CACCTCTTAGACGGCAATGCT... 3'",
   ],
   correctIndex = 0,
   onHome,
@@ -72,10 +72,10 @@ export default function RepairTemplateChoice({
 
   const explain = {
     correct:
-      "This template re-introduces the reference base(s) so HDR can fix the mutation and restore the original codon (AAG → Lys).",
+      "This template re-introduces the reference base(s) so HDR can fix the mutation and restore the original codon.",
     others: [
-      "Template 2 changes the codon in a different way (e.g., could be a ‘silent’ or different change) — it does not match the reference sequence.",
-      "Template 3 keeps the mutated base(s), so the disease-causing change remains.",
+      "Template 2 retains the A > T mutation in the sequence.",
+      "Template 3: AGA is inserted after position 10, known as insertion mutation.",
     ],
   };
 
@@ -121,7 +121,7 @@ export default function RepairTemplateChoice({
 
   /* ---------- Choice screen ---------- */
   return (
-    <div style={{ paddingTop: 8 }}>
+    <div style={{ paddingTop: 8, width: '110%' }}>
 
       <div className='heart-container' style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1000 }}>
       {Array.from({ length: hearts }, (_, index) => (

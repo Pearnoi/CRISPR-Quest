@@ -1,39 +1,41 @@
-import React, { useState, useRef, useEffect } from 'react';
-import SAM from './Sam'; 
+import React, { useRef, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import clickSound from '../sound/click.mp3';
-import Homepage from './Home';
 import '../styles/App.css';
 
 export default function CHOICES() {
-  const [samStarted, setSamStarted] = useState(false);
+  const navigate = useNavigate();
   const audioRef1 = useRef(null);
 
   useEffect(() => {
-      audioRef1.current = new Audio(clickSound);
-      audioRef1.current.volume = 1; 
-    }, []);
-  
-    const playClickSound = () => {
-      if (audioRef1.current) {
-        audioRef1.current.currentTime = 0; 
-        audioRef1.current.play().catch(error => {
-          console.log('Audio play prevented:', error);
-        });
-      }
-    };
+    audioRef1.current = new Audio(clickSound);
+    audioRef1.current.volume = 1; 
+  }, []);
 
-  const handleStartSam = () => setSamStarted(true);
+  const playClickSound = () => {
+    if (audioRef1.current) {
+      audioRef1.current.currentTime = 0; 
+      audioRef1.current.play().catch(console.error);
+    }
+  };
 
-  if (samStarted) {
+  const handleNavigation = (path) => {
     playClickSound();
-    return <SAM />;
-  }
+    navigate(path);
+  };
 
   return (
     <div className='choice-container'>
-        <div className='bigger'><div className='choices2' onClick={handleStartSam}>Save Sam</div></div>
-        <div className='bigger'><div className='choices2'>Save Earth</div></div>
-        <div className='bigger'><div className='choices2'>Save Corn</div></div>
+        <div className='bigger'><div className='choices2' onClick={() => handleNavigation("/save-sam")}>Save Sam</div></div>
+        <div className='bigger'><div className='choices2' onClick={() => handleNavigation("/save-earth")}>Save Earth</div></div>
+        <div className='bigger'><div className='choices2' onClick={() => handleNavigation("/save-corn")}>Save Corn</div></div>
+        <img 
+        className='return' 
+        src={require('../images/return.png')} 
+        alt="Return"
+        data-pin-nopin="true"
+        onClick={() => handleNavigation("/")}
+      />
     </div>
   );
 }

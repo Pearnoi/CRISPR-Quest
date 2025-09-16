@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import backgroundSound from '../sound/success.mp3';
 import clickSound from '../sound/click.mp3';
 
-export default function SAVED({score}) {
+export default function CORNSAVED({score}) {
   const [gameStarted, setGameStarted] = useState(false);
   const navigate = useNavigate();
   const audioRef = useRef(null);
   const audioRef1 = useRef(null);
+  const [finalScore, setFinalScore] = useState(score);
 
   useEffect(() => {
       audioRef1.current = new Audio(clickSound);
@@ -23,6 +24,10 @@ export default function SAVED({score}) {
         });
       }
     };
+
+  useEffect(() => {
+    setFinalScore(score);
+  }, []);
 
   useEffect(() => {
     audioRef.current = new Audio(backgroundSound);
@@ -51,10 +56,10 @@ export default function SAVED({score}) {
   return (
     <div className='container'>
         <div className='header'>
-            SAM IS SAVED
+            CORN IS SAVED
         </div>
 
-        <p className='score'>Score: {score}</p>
+        <p className='score'>Score: {finalScore}</p>
 
         <div className='all'>
           <button className='another'
@@ -64,7 +69,7 @@ export default function SAVED({score}) {
 
           <img 
           className='sam-unhappy-img' 
-          src={require('../images/sam-happy.png')} 
+          src={require('../images/healthy.png')} 
           alt="Happy Sam"
           data-pin-nopin="true"
           />

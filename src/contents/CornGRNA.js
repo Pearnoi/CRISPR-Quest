@@ -1,13 +1,12 @@
 import '../styles/App.css';
-import DEAD from './DeadSam'
-import CUTTING from './Cutting'
+import CORNCUTTING from './CornCutting'
 import { useNavigate } from "react-router-dom";
 import clickSound from '../sound/correct.mp3';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, animate, useTransform } from "framer-motion";
 
-export default function GRNA({ onNext, setScore }) {
-    const [isBox2Locked, setIsBox2Locked] = useState(false);
+export default function CORNGRNA({ onNext, setScore }) {
+    const [isBox3Locked, setIsBox3Locked] = useState(false);
     const [showNotice1, setShowNotice1] = useState(false);
     const [showNotice2, setShowNotice2] = useState(false);
     const [showNotice3, setShowNotice3] = useState(false);
@@ -86,7 +85,7 @@ export default function GRNA({ onNext, setScore }) {
     };
     
     const getMutatedRegionCenter = () => {
-      const mutatedRegion = document.querySelector(".mutated-region");
+      const mutatedRegion = document.querySelector(".cornmutated-region");
       if (!mutatedRegion || isDead) return { x: 0, y: 0 };
 
       const rect = mutatedRegion.getBoundingClientRect();
@@ -100,7 +99,7 @@ export default function GRNA({ onNext, setScore }) {
       if (isDead) return; 
 
       console.log("Dragging, checking distance...");
-      const draggable = document.querySelector(".grna1 div");
+      const draggable = document.querySelector(".grna4 div");
       if (!draggable) return;
 
       const rectBox = draggable.getBoundingClientRect();
@@ -129,11 +128,11 @@ export default function GRNA({ onNext, setScore }) {
     }
   };
 
-  const checkIfNearCenterBox3 = () => {
+  const checkIfNearCenterBox2 = () => {
     if (isDead) return; 
 
-    console.log("Dragging box 3, checking distance...");
-    const draggable = document.querySelector(".grna3 div");
+    console.log("Dragging box 2, checking distance...");
+    const draggable = document.querySelector(".grna2 div");
     if (!draggable) return;
 
     const rectBox = draggable.getBoundingClientRect();
@@ -152,29 +151,29 @@ export default function GRNA({ onNext, setScore }) {
     );
 
     if (distance < snapRadius) {
-      console.log("5. SUCCESS: Within snap radius! Should spring back.");
+      console.log("WRONG: Within snap radius! Should spring back.");
       deductHeart();
       showTemporaryNotice(3);
       showTemporaryNotice(1);
-      box3X.set(0, { type: "spring", stiffness: 50 });
-      box3Y.set(0, { type: "spring", stiffness: 50 });
+      box2X.set(0, { type: "spring", stiffness: 50 });
+      box2Y.set(0, { type: "spring", stiffness: 50 });
     }
   };
 
   const correctPosition = () => { 
     if (isDead) return;
-    if (isBox2Locked) return;
+    if (isBox3Locked) return;
 
     playCorrectSound();
     console.log("You selected the correct gRNA!!!");
 
-    const mutatedRegion = document.querySelector(".mutated-region");
+    const mutatedRegion = document.querySelector(".cornmutated-region");
       if (!mutatedRegion) return { x: 0, y: 0 };
 
-    const box2 = document.querySelector(".grna2 div");
-    if (!box2) return;
-    const greenBox = box2.getBoundingClientRect();
-    const container = document.querySelector(".grna2");
+    const box3 = document.querySelector(".grna5 div");
+    if (!box3) return;
+    const greenBox = box3.getBoundingClientRect();
+    const container = document.querySelector(".grna5");
     if (!container) return;
     const containerRect = container.getBoundingClientRect();
 
@@ -197,19 +196,19 @@ export default function GRNA({ onNext, setScore }) {
       
       showTemporaryNotice(3);
       showTemporaryNotice(2);
-      box2X.stop();
-      box2Y.stop();
+      box3X.stop();
+      box3Y.stop();
 
-      animate(box2X, targetX, { type: "spring", stiffness: 100, onComplete: () => {
-            setIsBox2Locked(true);
-            box2X.set(targetX);
-            box2X.stop();
+      animate(box3X, targetX, { type: "spring", stiffness: 100, onComplete: () => {
+            setIsBox3Locked(true);
+            box3X.set(targetX);
+            box3X.stop();
             }
            });
-      animate(box2Y, targetY, { type: "spring", stiffness: 100, onComplete: () => {
-            setIsBox2Locked(true);
-            box2Y.set(targetY);
-            box2Y.stop(); 
+      animate(box3Y, targetY, { type: "spring", stiffness: 100, onComplete: () => {
+            setIsBox3Locked(true);
+            box3Y.set(targetY);
+            box3Y.stop(); 
             } 
           });
         
@@ -234,12 +233,12 @@ export default function GRNA({ onNext, setScore }) {
   };
 
   if (isDead) {
-    navigate("/dead");
+    navigate("/corn/dead");
     return null;
   }
 
   if (isSaved) {
-    return <CUTTING hearts={hearts} time={time} setHearts={setHearts} onDead={() => setIsDead(true)} onPauseTimer={(isPaused) => setIsTimerRunning(!isPaused)}/>;
+    return <CORNCUTTING hearts={hearts} time={time} setHearts={setHearts} setTime={setTime} onDead={() => setIsDead(true)} onPauseTimer={(isPaused) => setIsTimerRunning(!isPaused)}/>;
   }
 
     return (
@@ -271,7 +270,7 @@ export default function GRNA({ onNext, setScore }) {
         )}
 
         <div className='grna-container'>
-          <div className="grna1">
+          <div className="grna4">
             <motion.div 
             drag whileDrag={{ scale: 1.5 }} 
             style={{ x: box1X, y: box1Y, transition: { type: false }}}
@@ -280,45 +279,46 @@ export default function GRNA({ onNext, setScore }) {
             dragElastic={0}
             dragMomentum={false}
             >
-              3'-CACCTCTGCAGACGGCAATGCT-5'
+              5′-GCGCTGAGGCTGCTAATAGA-3′
             </motion.div>
           </div>
 
           <div className="grna2">
             <motion.div 
-            drag={!isBox2Locked}
+            drag
             whileDrag={{ scale: 1.5 }} 
-            style={{ x: box2X, y: box2Y, cursor: isBox2Locked ? 'default' : 'grab', transition: { type: false }}}
-            onDrag={correctPosition}
+            style={{ x: box2X, y: box2Y, transition: { type: false }}}
+            onDrag={checkIfNearCenterBox2}
+            onDragEnd={handleDragEnd}
             dragElastic={0}
             dragMomentum={false}
-            dragConstraints={isBox2Locked}
             >
-             3'-CACCTCTTCAGACGGCAATG-5'
+              5′-GCGCTGAGGCTGCTAACAGA-3′
             </motion.div>
           </div>
         </div>
 
         <div className='grna-container'>
-          <div className="grna3">
+          <div className="grna5">
             <motion.div 
-            drag whileDrag={{ scale: 1.5 }} 
-            style={{ x: box3X, y: box3Y, transition: { type: false }}}
-            onDrag={checkIfNearCenterBox3}
-            onDragEnd={handleDragEnd}
+            drag={!isBox3Locked}
+            whileDrag={{ scale: 1.5 }} 
+            style={{ x: box3X, y: box3Y, cursor: isBox3Locked ? 'default' : 'grab', transition: { type: false }}}
+            onDrag={correctPosition}
             dragElastic={0}
             dragMomentum={false}
+            dragConstraints={isBox3Locked}
             >
-              3'-CACCTCTTCAGAAGACGGCAATGCT-5'
+              5′-GCGCTGAGGCTGCTAACAGA-3′
             </motion.div>
           </div>
         </div>
 
-          <div className='dna'> 
-              <div className = "mutated-region">
+          <div className='corndna'> 
+              <div className = "cornmutated-region">
               </div>
           </div>
-          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GTGGAGAAGTCTGCCGTTAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
+          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GGGGCACCATGCGTGCATCGATCCATCGC<u>TGG</u>CGC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
       </div>
     );
 };

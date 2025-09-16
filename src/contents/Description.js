@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import '../styles/App.css';
+import { useNavigate } from "react-router-dom";
 
 export default function DESCRIPTION() {
+    const navigate = useNavigate();
     return (
         <div className='desc-container'>
+            <button className="ex" onClick={() => navigate("/")}>
+            X
+            </button>
             <h1 style={{fontSize: '5em'}}>NPM ZERO</h1>
 
             <p>Everyday life depends on energy, but most of it comes from fossil fuels, which pollute the air, 

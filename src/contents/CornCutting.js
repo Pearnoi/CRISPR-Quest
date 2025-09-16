@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import RepairTemplateChoice from './RepairTemplateChoice'; 
+import CORNTEMPLATE from './CornTemplate'; 
 import '../styles/App.css';
 import backgroundSound from '../sound/scissors.mp3';
 import { useLocation } from "react-router-dom";
 
-export default function CUTTING({hearts, time, setHearts, onDead, onPauseTimer}) {
+export default function CUTTING({hearts, time, setHearts, setTime, onDead, onPauseTimer}) {
   const [samStarted, setSamStarted] = useState(false);
   const audioRef = useRef(null);
 
@@ -32,16 +32,16 @@ export default function CUTTING({hearts, time, setHearts, onDead, onPauseTimer})
   }, []);
 
   if (samStarted) {
-    return <RepairTemplateChoice hearts={hearts} time={time} setHearts={setHearts} onDead={onDead} onPauseTimer={onPauseTimer}/>;
+    return <CORNTEMPLATE hearts={hearts} time={time} setHearts={setHearts} setTime={setTime} onDead={onDead} onPauseTimer={onPauseTimer}/>;
   }
 
   return (
     <div>
         <div class="dna-container">
             <div class="dna2"> 
-                <div class="mutated-region2"></div>
+                <div class="cornmutated-region2"></div>
             </div>
-            <div class="sequence">5'- GTGGAGAAGTCTGCCGTTAC -3'</div>
+            <div class="sequence">5'- GGGGCACCATGCGTGCATCGATCCATCGCTGGCGC -3'</div>
         </div>
 
         <img 

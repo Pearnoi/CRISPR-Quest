@@ -4,7 +4,7 @@ import '../styles/App.css';
 import backgroundSound from '../sound/monitor.mp3';
 import clickSound from '../sound/click.mp3';
 
-export default function DEAD() {
+export default function CORNDEAD() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameRetry, setGameRetry] = useState(false);
   const audioRef = useRef(null);
@@ -55,7 +55,7 @@ export default function DEAD() {
       }
     playClickSound();
     setTimeout(() => {
-    navigate("/grna");
+    navigate("/corn/grna");
   }, 100);
   }
 
@@ -64,7 +64,7 @@ export default function DEAD() {
     <div className='topper'></div>
       <div className='container'>
         <div className='header'>
-            SAM IS DEAD
+            Earth IS DEAD
         </div>
 
         <img 
@@ -82,8 +82,8 @@ export default function DEAD() {
 
             <img 
             className='sam-unhappy-img' 
-            src={require('../images/sam-unhappy.png')} 
-            alt="Happy Sam"
+            src={require('../images/plasticbag.png')} 
+            alt="Dead Earth"
             data-pin-nopin="true"
             />
 

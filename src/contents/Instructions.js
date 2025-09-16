@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../styles/App.css';
 
 export default function INSTRUCTIONS() {
+    const navigate = useNavigate();
     return (
         <div className='desc-container'>
+            <button className="ex" onClick={() => navigate("/")}>
+            X
+            </button>
             <h1 style={{fontSize: '5em', textAlign: 'center'}}>Game Instruction</h1>
 
             <p>Welcome, Scientist! Your mission is to use the power of CRISPR-Cas9 to edit 

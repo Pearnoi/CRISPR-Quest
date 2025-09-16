@@ -4,7 +4,7 @@ import '../styles/App.css';
 import keyboardSound from '../sound/keyboard.mp3';
 import clickSound from '../sound/click.mp3';
 
-export default function SAMD() {
+export default function EARTHD() {
   const navigate = useNavigate();
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,7 +12,7 @@ export default function SAMD() {
   const audioRef = useRef(null);
   const audioRef1 = useRef(null);
 
-  const fullText = " Sam, a young patient, suffers from sickle cell anemia caused by a single-point mutation in the β-globin (HBB) gene. As a gene scientist, you must correctly use CRISPR-Cas9 to fix this mutation. Are you ready to save Sam?";
+  const fullText = "The basidiomycetous yeast, Pseudozyma antarctica, has the ability to express industrially beneficial biodegradable plastic-degrading enzymes, known as polyester degrading enzymes (PaE). We want to increase enzymatic activity by inserting a gene PaURA3 into PaCLE1. Could you do it?";
 
   useEffect(() => {
     audioRef1.current = new Audio(clickSound);
@@ -57,24 +57,24 @@ export default function SAMD() {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
-  };
-}, []);
+    };
+    }, []);
 
   const handleStartGame = () => {
     playClickSound();
     if (audioRef.current) {
       audioRef.current.pause();
     }
-    navigate("/grna");
+    navigate("/earth/grna");
   }
 
   return (
     <div className='container2'>
       <img 
         className='sam-desc' 
-        src={require('../images/sam-unhappy.png')} 
+        src={require('../images/plasticbag.png')} 
+        alt="Unhealthy Earth"
         data-pin-nopin="true"
-        alt="Unhappy Sam"
       />
 
       <div className='container3'>
@@ -89,24 +89,17 @@ export default function SAMD() {
       </div>
 
       <img 
-        className='sickle' 
-        src={require('../images/sickle.png')} 
+        className='sickle4' 
+        src={require('../images/bottle.png')} 
         data-pin-nopin="true"
-        alt="Sickle Blood Cell"
+        alt="Single Corn"
       />
 
       <img 
         className='sickle2' 
-        src={require('../images/sickle.png')} 
+        src={require('../images/bottle.png')} 
         data-pin-nopin="true"
-        alt="Sickle Blood Cell"
-      />
-
-      <img 
-        className='sickle3' 
-        src={require('../images/sickle.png')} 
-        data-pin-nopin="true"
-        alt="Sickle Blood Cell"
+        alt="Single Corn"
       />
     </div>
   );
