@@ -10,8 +10,8 @@ export default function RepairTemplateChoice({
   originalSequence = "Ref: 5’- GAGGAGAAGTCTGCCGTTAC -3’",
   mutatedSequence  = "Mut: 5’- GTGGAGAAGTCTGCCGTTAC -3’",
   templates = [
-    "5' ...CACCTCTTCAGACGGCAATGCT... 3'",
     "5' ...CTCCTCTTCAGACGGCAATGCT... 3'",
+    "5' ...CACCTCTTCAGACGGCAATGCT... 3'",
     "5' ...CACCTCTTAGACGGCAATGCT... 3'",
   ],
   correctIndex = 0,

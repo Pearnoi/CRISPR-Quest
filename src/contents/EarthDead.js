@@ -55,7 +55,7 @@ export default function CORNDEAD() {
       }
     playClickSound();
     setTimeout(() => {
-    navigate("/corn/grna");
+    navigate("/earth/grna");
   }, 100);
   }
 

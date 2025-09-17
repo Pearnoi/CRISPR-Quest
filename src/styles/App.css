@@ -47,8 +47,8 @@ body {
   height: 50px;
   margin-left: 20px; 
   position: relative;
-  margin-top: 200px;
-  margin-left: 2px; 
+  margin-top: 170px;
+  margin-left: 163px; 
 }
 
 .corndna, .corndna2 {
@@ -66,8 +66,8 @@ body {
 }
 
 .corndna2 {
-    margin-top: 200px;
-    margin-left: 2px; 
+    margin-top: 160px;
+    margin-left: 18px; 
 }
 
 .mutated-region {
@@ -97,7 +97,7 @@ body {
   height: 50px;
   position: absolute;
   top: 0;
-  left: 80px;
+  left: 82px;
   z-index: 5;
 }
 
@@ -212,7 +212,12 @@ body {
 .grna4,
 .grna5,
 .grna6,
-.grna8 {
+.grna8,
+.grna9,
+.grna10,
+.grna11,
+.grna12,
+.grna13 {
   border-radius: 30px;
   width: 350px;
   height: 40px;
@@ -232,7 +237,12 @@ body {
 .grna4 div,
 .grna5 div,
 .grna6 div,
-.grna8 div {
+.grna8 div,
+.grna9 div,
+.grna10 div,
+.grna11 div,
+.grna12 div,
+.grna13 div {
   border-radius: 30px;
   height: 40px;
   padding: 10px;
@@ -279,11 +289,38 @@ body {
 
 .grna8 div {
   background: greenyellow;
-  width: 520px;
-  margin-top: 20px; 
-  margin-left: -90px;
-  z-index: 5;
+  width: 440px;
 }
+
+.grna9 div {
+  background: white;
+  width: 410px;
+  margin-left: -50px; 
+}
+
+.grna10 div {
+  background: rgb(234, 97, 234);
+  width: 410px;
+  margin-top: 20px; 
+}
+
+.grna11 div {
+  background: white;
+  width: 390px;
+  margin-left: -50px; 
+}
+
+.grna12 div {
+  background: greenyellow;
+  width: 520px;
+}
+
+.grna13 div {
+  background: rgb(234, 97, 234);
+  width: 370px;
+  margin-top: 20px; 
+}
+
 
 .refresh {
     padding: 10px;
@@ -648,7 +685,6 @@ body {
 .template, .template2 {
     font-size: 4em; 
     color: #ffeb8f;
-    cursor: pointer; 
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     position: absolute;
 }
@@ -661,4 +697,12 @@ body {
 .template2 {
     margin-top: -70px; 
     margin-left: -500px; 
+}
+
+.template3 {
+    font-size: 1rem; 
+    color: black; 
+    position: absolute;
+    margin-top: 15px; 
+    margin-left: -350px;
 }

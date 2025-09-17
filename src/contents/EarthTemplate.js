@@ -6,7 +6,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, animate, useTransform } from "framer-motion";
 
 export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead, onPauseTimer }) {
-    const [isBox3Locked, setIsBox3Locked] = useState(false);
+    const [isBox2Locked, setIsBox2Locked] = useState(false); // Changed from isBox3Locked to isBox2Locked
     const [showNotice1, setShowNotice1] = useState(false);
     const [showNotice2, setShowNotice2] = useState(false);
     const [showNotice3, setShowNotice3] = useState(false);
@@ -113,7 +113,7 @@ export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead
       if (isDead) return; 
 
       console.log("Dragging, checking distance...");
-      const draggable = document.querySelector(".grna4 div");
+      const draggable = document.querySelector(".grna11 div");
       if (!draggable) return;
 
       const rectBox = draggable.getBoundingClientRect();
@@ -142,11 +142,11 @@ export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead
     }
   };
 
-  const checkIfNearCenterBox2 = () => {
+  const checkIfNearCenterBox3 = () => { // Changed from checkIfNearCenterBox2 to checkIfNearCenterBox3
     if (isDead) return; 
 
-    console.log("Dragging box 2, checking distance...");
-    const draggable = document.querySelector(".grna2 div");
+    console.log("Dragging box 3, checking distance...");
+    const draggable = document.querySelector(".grna13 div"); // Changed from grna2 to grna10
     if (!draggable) return;
 
     const rectBox = draggable.getBoundingClientRect();
@@ -169,14 +169,14 @@ export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead
       deductHeart();
       showTemporaryNotice(3);
       showTemporaryNotice(1);
-      box2X.set(0, { type: "spring", stiffness: 50 });
-      box2Y.set(0, { type: "spring", stiffness: 50 });
+      box3X.set(0, { type: "spring", stiffness: 50 }); // Changed from box2X to box3X
+      box3Y.set(0, { type: "spring", stiffness: 50 }); // Changed from box2Y to box3Y
     }
   };
 
   const correctPosition = () => { 
     if (isDead) return;
-    if (isBox3Locked) return;
+    if (isBox2Locked) return; // Changed from isBox3Locked to isBox2Locked
 
     playCorrectSound();
     console.log("You selected the correct gRNA!!!");
@@ -184,10 +184,10 @@ export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead
     const mutatedRegion = document.querySelector(".earthmutated-region3");
       if (!mutatedRegion) return { x: 0, y: 0 };
 
-    const box3 = document.querySelector(".grna8 div");
-    if (!box3) return;
-    const greenBox = box3.getBoundingClientRect();
-    const container = document.querySelector(".grna8");
+    const box2 = document.querySelector(".grna12 div"); // Changed from grna6 to grna8
+    if (!box2) return;
+    const greenBox = box2.getBoundingClientRect();
+    const container = document.querySelector(".grna12"); // Changed from grna6 to grna8
     if (!container) return;
     const containerRect = container.getBoundingClientRect();
 
@@ -210,19 +210,19 @@ export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead
       
       showTemporaryNotice(3);
       showTemporaryNotice(2);
-      box3X.stop();
-      box3Y.stop();
+      box2X.stop(); // Changed from box3X to box2X
+      box2Y.stop(); // Changed from box3Y to box2Y
 
-      animate(box3X, targetX, { type: "spring", stiffness: 100, onComplete: () => {
-            setIsBox3Locked(true);
-            box3X.set(targetX);
-            box3X.stop();
+      animate(box2X, targetX, { type: "spring", stiffness: 100, onComplete: () => { // Changed from box3X to box2X
+            setIsBox2Locked(true); // Changed from setIsBox3Locked to setIsBox2Locked
+            box2X.set(targetX); // Changed from box3X to box2X
+            box2X.stop(); // Changed from box3X to box2X
             }
            });
-      animate(box3Y, targetY, { type: "spring", stiffness: 100, onComplete: () => {
-            setIsBox3Locked(true);
-            box3Y.set(targetY);
-            box3Y.stop(); 
+      animate(box2Y, targetY, { type: "spring", stiffness: 100, onComplete: () => { // Changed from box3Y to box2Y
+            setIsBox2Locked(true); // Changed from setIsBox3Locked to setIsBox2Locked
+            box2Y.set(targetY); // Changed from box3Y to box2Y
+            box2Y.stop(); // Changed from box3Y to box2Y
             } 
           });
         
@@ -259,9 +259,14 @@ export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead
 
     return (
       <div className="app-container">
-        <h3 className='template2'>
+        <h3 className='template'>
             Repair Template
         </h3>
+
+        <h6 className='template3'>
+           Be careful, you have to choose the right repair template <br></br> with ..... on each side
+        </h6>
+
         <div className='heart-container'>
           {Array.from({ length: hearts }, (_, index) => (
                     <div key={index} className={`heart ${index < hearts ? 'active' : 'lost'}`}>❤️</div>
@@ -277,41 +282,67 @@ export default function EARTHTEMPLATE({ hearts, time, setHearts, setTime, onDead
           <div className='notice'>
             {showNotice1 && (
               <div className='sth'>
-                You selected the wrong gRNA!
+                You selected the wrong repair template!
               </div>
             )}
             {showNotice2 && (
               <div className='sth'>
-                You selected the correct gRNA!
+                You selected the correct repair template!
               </div>
             )}
           </div>
         )}
 
         <div className='grna-container'>
+                  <div className="grna11">
+                    <motion.div 
+                    drag whileDrag={{ scale: 1.5 }} 
+                    style={{ x: box1X, y: box1Y, transition: { type: false }}}
+                    onDrag={checkIfNearCenter}
+                    onDragEnd={handleDragEnd}
+                    dragElastic={0}
+                    dragMomentum={false}
+                    >
+                      5’ -...CTGGCGTCATCTCTGGCCTGG-3’ 
+                    </motion.div>
+                  </div>
+        
+                  <div className="grna12">
+                    <motion.div 
+                    drag={!isBox2Locked} // Changed from drag to drag={!isBox2Locked}
+                    whileDrag={{ scale: 1.5 }} 
+                    style={{ x: box2X, y: box2Y, cursor: isBox2Locked ? 'default' : 'grab', transition: { type: false }}} // Changed isBox3Locked to isBox2Locked
+                    onDrag={correctPosition} // Changed from onDrag={checkIfNearCenterBox2} to onDrag={correctPosition}
+                    dragElastic={0}
+                    dragMomentum={false}
+                    dragConstraints={isBox2Locked} // Changed from dragConstraints to dragConstraints={isBox2Locked}
+                    >
+                      5’-...GGCCCTGGCGTCATCTCTGGCCTGGCCAAG...-3’
 
-          <div className='grna-container'>
-          <div className="grna8">
-            <motion.div 
-            drag={!isBox3Locked}
-            whileDrag={{ scale: 1.5 }} 
-            style={{ x: box3X, y: box3Y, cursor: isBox3Locked ? 'default' : 'grab', transition: { type: false }}}
-            onDrag={correctPosition}
-            dragElastic={0}
-            dragMomentum={false}
-            dragConstraints={isBox3Locked}
-            >
-              5’-...GGCCCTGGCGTCATCTCTGGCCTGGCCAAG...-3’
-            </motion.div>
+                    </motion.div>
+                  </div>
+                </div>
+        
+                <div className='grna-container'>
+                  <div className="grna13">
+                    <motion.div 
+                    drag // Changed from drag={!isBox3Locked} to drag
+                    whileDrag={{ scale: 1.5 }} 
+                    style={{ x: box3X, y: box3Y, transition: { type: false }}} // Removed cursor property
+                    onDrag={checkIfNearCenterBox3} // Changed from onDrag={correctPosition} to onDrag={checkIfNearCenterBox3}
+                    dragElastic={0}
+                    dragMomentum={false}
+                    >
+                      5’-GTCATCTCTGGCCTGGCCAAG-3’
+                    </motion.div>
+                  </div>
+                </div>
+
+        <div className='earthdna2'> 
+          <div className="earthmutated-region3">
           </div>
         </div>
-        </div>
-
-          <div className='earthdna2'> 
-              <div className = "earthmutated-region3">
-              </div>
-          </div>
-          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GACCGGCCTTGACCTGGGCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
+        <div className="real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GACCGGCCTTGACCTGGGCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
       </div>
     );
 };
