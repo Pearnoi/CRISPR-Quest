@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import '../styles/App.css';
+import { useNavigate } from "react-router-dom";
 
 export default function CRISPR() {
+    const navigate = useNavigate();
     return (
         <div className='desc-container'>
+            <button className="ex" onClick={() => navigate("/")}>
+            X
+            </button>
             <h1 style={{fontSize: '5em'}}>What is CRISPR-Cas9?</h1>
 
             <p>Imagine DNA as an instruction book that tells every cell in your 
