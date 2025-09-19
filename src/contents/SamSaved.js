@@ -34,6 +34,7 @@ export default function SAVED({score}) {
           src={require('../images/sam-happy.png')} 
           alt="Happy Sam"
           data-pin-nopin="true"
+          style={{ width: '30vw', height: '30vw', minWidth: '180px', minHeight: '180px', maxWidth: '300px', maxHeight: '300px', objectFit: 'contain' }}
           />
 
           <button

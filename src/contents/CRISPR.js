@@ -24,7 +24,7 @@ export default function CRISPR() {
             So together, CRISPR-Cas9 is like scissors for scientists to edit and change a part of the DNA sequence.
             </p>
 
-            <hr style={{margin: '50px'}}></hr>
+            <hr style={{margin: '5vw'}}></hr>
 
             <h1 style={{fontSize: '5em', textAlign: 'center'}}>Guide RNA</h1>
 
@@ -61,7 +61,7 @@ export default function CRISPR() {
                 </ul>
             </p>
 
-            <hr style={{margin: '50px'}}></hr>
+            <hr style={{margin: '5vw'}}></hr>
 
             <h1 style={{fontSize: '5em', textAlign: 'center'}}>Repair Template</h1>
 
@@ -85,7 +85,7 @@ export default function CRISPR() {
                 </ul>
             </p>
 
-            <hr style={{margin: '50px'}}></hr>
+            <hr style={{margin: '5vw'}}></hr>
 
             <h1 style={{fontSize: '5em', textAlign: 'center'}}>In CRISPR-Quest</h1>
             <p>

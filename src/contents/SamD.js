@@ -51,48 +51,57 @@ useEffect(() => {
   }
 
   return (
-    <div className='container2'>
-      <img 
-        className='sam-desc' 
-        src={require('../images/sam-unhappy.png')} 
-        alt="Unhappy Sam"
-        data-pin-nopin="true"
-      />
-
-        <div className='container3'>
-          <div className='text-container'>
-              <div className='description2'>
-                {displayText}
-              </div>
-          </div>
-          <div className='text-container' style={{ cursor: 'pointer', background: 'red' }}>
-            <div className='description' onClick={handleStartGame} style={{ color: 'red' }}>OF COURSE!!!</div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '60vh',
+      minHeight: '320px',
+      width: '100vw',
+      gap: '0',
+      position: 'relative',
+    }}>
+      <div style={{
+        flex: '0 0 40%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+      }}>
+        <img
+          className='sam-desc'
+          src={require('../images/sam-unhappy.png')}
+          alt="Unhappy Sam"
+          data-pin-nopin="true"
+          style={{
+            width: '100%',
+            height: 'auto',
+            maxWidth: '38vw',
+            maxHeight: '56vh',
+            minWidth: '120px',
+            minHeight: '120px',
+            objectFit: 'contain',
+            display: 'block',
+            margin: '0 auto',
+          }}
+        />
+      </div>
+      <div style={{
+        flex: '0 0 40%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+      }}>
+        <div className='text-container' style={{ margin: 0 }}>
+          <div className='description2' style={{ minWidth: 'unset', minHeight: 'unset', wordBreak: 'break-word', fontSize: '1.25em', lineHeight: 1.4 }}>
+            {displayText}
           </div>
         </div>
-
-        <img 
-        className='sickle' 
-        src={require('../images/sickle.png')} 
-        alt="Sickle Blood Cell"
-        data-pin-nopin="true"
-        onClick={handleStartGame}
-      />
-
-      <img 
-        className='sickle2' 
-        src={require('../images/sickle.png')} 
-        alt="Sickle Blood Cell"
-        data-pin-nopin="true"
-        onClick={handleStartGame}
-      />
-
-      <img 
-        className='sickle3' 
-        src={require('../images/sickle.png')} 
-        alt="Sickle Blood Cell"
-        data-pin-nopin="true"
-        onClick={handleStartGame}
-      />
+        <button className='another' onClick={handleStartGame} style={{ marginTop: '2vh' }}>OF COURSE!!!</button>
+      </div>
     </div>
   );
 }

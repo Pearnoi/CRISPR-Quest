@@ -25,7 +25,7 @@ export default function INSTRUCTIONS() {
             No matter which mission you choose, the gene-editing process is the same. You can choose the other missions once you complete one mission. Follow these steps to succeed!
             </p>
 
-            <hr style={{margin: '50px'}}></hr>
+            <hr style={{margin: '5vw'}}></hr>
 
             <h1 style={{fontSize: '5em', textAlign: 'center'}}>How To Play?</h1>
             <p>
@@ -44,7 +44,7 @@ export default function INSTRUCTIONS() {
             No matter which mission you choose, the gene-editing process is the same. You can choose the other missions once you complete one mission. Follow these steps to succeed!
             </p>
 
-            <hr style={{margin: '50px'}}></hr>
+            <hr style={{margin: '5vw'}}></hr>
 
             <h1 style={{fontSize: '5em', textAlign: 'center'}}>Win or Lose</h1>
             <p>

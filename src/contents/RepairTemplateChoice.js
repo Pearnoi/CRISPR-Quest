@@ -64,10 +64,10 @@ export default function RepairTemplateChoice({
   /* ---------- Choice screen ---------- */
   return (
     <div style={{ paddingTop: 8 }}>
-      <h2 className="header" style={{ fontSize: "3.2rem", lineHeight: 1.05, margin: "0 0 8px 0" }}>
+  <h2 className="header" style={{ fontSize: "4vw", lineHeight: 1.05, margin: "0 0 0.8vw 0" }}>
         Step 4 · Repair Template Choice
       </h2>
-      <p style={{ margin: "0 0 16px 4px", opacity: 0.85 }}>
+  <p style={{ margin: "0 0 1.6vw 0.4vw", opacity: 0.85 }}>
         Pick the donor DNA template that restores the original (healthy) sequence after Cas9 cut.
       </p>
 
@@ -93,7 +93,7 @@ export default function RepairTemplateChoice({
         </div>
 
         {/* RIGHT side */}
-        <div style={{ display: "grid", gridTemplateRows: "1fr 8px auto", gap: 0, height: "100%" }}>
+  <div style={{ display: "grid", gridTemplateRows: "1fr 0.8vw auto", gap: 0, height: "100%" }}>
           <div style={{ display: "grid", gap: 14, overflowY: "auto", paddingRight: 2 }}>
             {options.map(({ txt, i }) => {
               const picked = selected === i;
@@ -157,11 +157,11 @@ export default function RepairTemplateChoice({
       <style>{`
         .chip {
           display:inline-block;
-          font-size:12px;
+          font-size:1.2vw;
           font-weight:700;
-          padding:4px 10px;
-          border-radius:999px;
-          border:2px solid rgba(0,0,0,.12);
+          padding:0.4vw 1vw;
+          border-radius:999vw;
+          border:0.2vw solid rgba(0,0,0,.12);
           background:#f8fafc;
         }
         .chip.info { background:#eef5ff; }
@@ -169,14 +169,14 @@ export default function RepairTemplateChoice({
         .pixel-box {
           font: inherit;
           width: 100%;
-          padding: 14px 16px;
-          border: 6px solid #000;
-          border-radius: 8px;
+          padding: 1.4vw 1.6vw;
+          border: 0.6vw solid #000;
+          border-radius: 0.8vw;
           background: linear-gradient(#e8e8e8, #d5d5d5);
           box-shadow:
-            0 6px 0 #000,
-            inset -6px -6px 0 rgba(0,0,0,.15),
-            inset  6px  6px 0 rgba(255,255,255,.35);
+            0 0.6vw 0 #000,
+            inset -0.6vw -0.6vw 0 rgba(0,0,0,.15),
+            inset  0.6vw  0.6vw 0 rgba(255,255,255,.35);
           color: #111;
         }
         .pixel-box.ok { background: linear-gradient(#e7fff0, #c8f6da); }

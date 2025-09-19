@@ -4,6 +4,28 @@ import CUTTING from './Cutting'
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, animate, useTransform } from "framer-motion";
 
+// Shared style for the sequence box to match the gRNA row as a single component
+const sequenceBoxStyle = {
+  minWidth: '480px',
+  maxWidth: '900px',
+  width: '60vw',
+  margin: '0 auto',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '3.5em',
+  background: 'rgba(255,255,255,0.08)',
+  borderRadius: '1em',
+  boxSizing: 'border-box',
+  fontSize: '1em',
+  fontWeight: 500,
+  letterSpacing: '0.04em',
+  fontFamily: 'inherit',
+  color: '#222',
+  border: '2px solid #b3b3b3',
+  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)',
+};
+
 export default function GRNA({ onNext, setScore }) {
     const [isBox2Locked, setIsBox2Locked] = useState(false);
     const [showNotice1, setShowNotice1] = useState(false);
@@ -213,84 +235,101 @@ export default function GRNA({ onNext, setScore }) {
     return <CUTTING score={score} />;
   }
 
-    return (
-      <div className="app-container">
-        <div className='heart-container'>
-          {Array.from({ length: hearts }, (_, index) => (
-                    <div key={index} className={`heart ${index < hearts ? 'active' : 'lost'}`}>❤️</div>
-                ))}
+  // Responsive layout: top 50% for heart/timer, bottom 50% for gRNAs, DNA, sequence
+  return (
+    <div className="app-container" style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100vw', justifyContent: 'center' }}>
+      {/* Top 50%: Heart and Timer Centered */}
+      <div style={{ flex: '0 0 50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+          <div className='heart-container' style={{ justifyContent: 'center', alignItems: 'center', marginBottom: '1vh' }}>
+            {Array.from({ length: hearts }, (_, index) => (
+              <div key={index} className={`heart ${index < hearts ? 'active' : 'lost'}`}>❤️</div>
+            ))}
             <div className='placeholder'></div>
-        </div>
-
-        <div style={{ textAlign: 'center', padding: '20px', color: 'white' }}>
-          <h1 style={{ fontSize: '60px' }}>{formatTime(time)}</h1>
-        </div>
-
-        {showNotice3 && (
-          <div className='notice'>
-            {showNotice1 && (
-              <div className='sth'>
-                You selected the wrong gRNA!
-              </div>
-            )}
-            {showNotice2 && (
-              <div className='sth'>
-                You selected the correct gRNA!
-              </div>
-            )}
           </div>
-        )}
+          <div style={{ textAlign: 'center', color: 'white', marginTop: '1vh' }}>
+            <h1 style={{ fontSize: '5vw', margin: 0 }}>{formatTime(time)}</h1>
+          </div>
+        </div>
+      </div>
 
-        <div className='grna-container'>
-          <div className="grna1">
+      {/* Bottom 50%: vertical stack: sequence, gRNAs row, DNA/boxes */}
+      <div style={{ flex: '0 0 50%', display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', height: '100%', minHeight: 0, width: '100%' }}>
+
+        {/* Sequence at top */}
+        <div className="real-dna" style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '90%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            whiteSpace: 'nowrap',
+            zIndex: 2,            // make sure it isn't covered by notices
+            pointerEvents: 'none' // static text
+          }}>
+              5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT(CCT)GAGGAGAAGTCTGCCGTTACTGCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'
+        </div>
+
+        {/* gRNAs row below sequence */}
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: '2vw', margin: '2vh 0 0 0' }}>
+          {showNotice3 && (
+            <div className='notice' style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)' }}>
+              {showNotice1 && (
+                <div className='sth'>You selected the wrong gRNA!</div>
+              )}
+              {showNotice2 && (
+                <div className='sth'>You selected the correct gRNA!</div>
+              )}
+            </div>
+          )}
+          <div className="grna1" style={{ minWidth: '160px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <motion.div 
-            drag whileDrag={{ scale: 1.5 }} 
-            style={{ x: box1X, y: box1Y, transition: { type: false }}}
-            onDrag={checkIfNearCenter}
-            onDragEnd={handleDragEnd}
-            dragElastic={0}
-            dragMomentum={false}
+              drag whileDrag={{ scale: 1.5 }} 
+              style={{ x: box1X, y: box1Y, transition: { type: false }, display: 'flex', alignItems: 'center', justifyContent: 'center', height: '3.5em' }}
+              onDrag={checkIfNearCenter}
+              onDragEnd={handleDragEnd}
+              dragElastic={0}
+              dragMomentum={false}
             >
               (GAG)GTCCTCTTCAGACGGCAATG
             </motion.div>
           </div>
-
-          <div className="grna2">
+          <div className="grna2" style={{ minWidth: '160px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <motion.div 
-            drag={!isBox2Locked}
-            whileDrag={{ scale: 1.5 }} 
-            style={{ x: box2X, y: box2Y, cursor: isBox2Locked ? 'default' : 'grab', transition: { type: false }}}
-            onDrag={correctPosition}
-            dragElastic={0}
-            dragMomentum={false}
-            dragConstraints={isBox2Locked}
+              drag={!isBox2Locked}
+              whileDrag={{ scale: 1.5 }} 
+              style={{ x: box2X, y: box2Y, cursor: isBox2Locked ? 'default' : 'grab', transition: { type: false }, display: 'flex', alignItems: 'center', justifyContent: 'center', height: '3.5em' }}
+              onDrag={correctPosition}
+              dragElastic={0}
+              dragMomentum={false}
+              dragConstraints={isBox2Locked}
             >
               (GGN)CTCCTCTTCAGACGGCAATG
             </motion.div>
           </div>
-        </div>
-
-        <div className='grna-container'>
-          <div className="grna3">
+          <div className="grna3" style={{ minWidth: '160px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <motion.div 
-            drag whileDrag={{ scale: 1.5 }} 
-            style={{ x: box3X, y: box3Y, transition: { type: false }}}
-            onDrag={checkIfNearCenterBox3}
-            onDragEnd={handleDragEnd}
-            dragElastic={0}
-            dragMomentum={false}
+              drag whileDrag={{ scale: 1.5 }} 
+              style={{ x: box3X, y: box3Y, transition: { type: false }, display: 'flex', alignItems: 'center', justifyContent: 'center', height: '3.5em' }}
+              onDrag={checkIfNearCenterBox3}
+              onDragEnd={handleDragEnd}
+              dragElastic={0}
+              dragMomentum={false}
             >
               (GAG)GTCCTCTTCAGACGGCAATG
             </motion.div>
           </div>
         </div>
 
-        <div className='dna'> 
-            <div className = "mutated-region">
-            </div>
+        {/* DNA/boxes at bottom */}
+        <div className='dna' style={{ margin: '2vh 0 0 0', width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}> 
+          <div className = "mutated-region"></div>
         </div>
-        <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT(CCT)GAGGAGAAGTCTGCCGTTACTGCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
       </div>
-    );
+    </div>
+  );
 };
 
