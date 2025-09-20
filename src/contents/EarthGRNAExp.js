@@ -42,7 +42,7 @@ export default function EARTHGRNAEXP({hearts, time, setHearts, onDead, onPauseTi
             <strong style={{color: 'green'}}>Correct gRNA sequence: 3'- CTGGCCGGAACTGGACCCGG -5'</strong>
             <br></br>
                 <strong style={{color: 'red'}}>Faulty gRNA sequence: <br></br>
-                i. 3’-3'- CTGGCCGGAACTG_ACCCGG-5’<br></br>
+                i. 3'- CTGGCCGGAACTG_ACCCGG-5’<br></br>
                 ii. 3’-CTGGCC<u>C</u>GAACTGGACCCGG-5’</strong>
             <br></br>
             <br></br>
