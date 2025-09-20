@@ -54,20 +54,20 @@ body {
 .corndna, .corndna2 {
   background: blue;
   border-radius: 30px;
-  width: 690px;
+  width: 600px;
   height: 50px;
   margin-left: 20px; 
   position: relative;
 }
 
 .corndna {
-    margin-left: 20px; 
+    margin-left: 60px; 
     margin-top: 155px;
 }
 
 .corndna2 {
     margin-top: 160px;
-    margin-left: 18px; 
+    margin-left: 65px; 
 }
 
 .mutated-region {
@@ -83,21 +83,21 @@ body {
 .cornmutated-region {
   background: red;
   border-radius: 30px;
-  width: 479px;
+  width: 370px;
   height: 50px;
   position: absolute;
   top: 0;
-  left: 80px;
+  left: 133px;
 }
 
 .cornmutated-region3 {
   background: white;
   border-radius: 30px;
-  width: 479px;
+  width: 365px;
   height: 50px;
   position: absolute;
   top: 0;
-  left: 82px;
+  left: 128px;
   z-index: 5;
 }
 
@@ -186,11 +186,11 @@ body {
 .cornmutated-region2 {
     background: #e84a4a;
     border-radius: 30px;
-    width: 550px;
+    width: 400px;
     height: 50px;
     position: absolute;
     top: 0;
-    left: 120px;
+    left: 190px;
     box-shadow: 0 0 15px rgba(232, 74, 74, 0.7);
 }
     
@@ -256,7 +256,8 @@ body {
 
 .grna4 div {
   background: white;
-  width: 350px;
+  width: 390px;
+  margin-left: -30px;
 }
 
 .grna2 div {
@@ -629,6 +630,15 @@ body {
     z-index: 10; 
 }
 
+.scissors3 {
+    position: fixed; 
+    width: 100px; 
+    height: 80px; 
+    margin-left: 450px; 
+    margin-top: -100px; 
+    z-index: 10; 
+}
+
 .clickme {
     height: 100px;
     width: 100px;
@@ -669,7 +679,16 @@ body {
 }
 
 .ex {
-    margin-left: 95%;
+    margin-left: 90%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 3em; 
+}
+
+.next {
+    margin-left: 80%;
     background: none;
     border: none;
     cursor: pointer;

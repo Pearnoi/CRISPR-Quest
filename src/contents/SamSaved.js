@@ -10,11 +10,6 @@ export default function SAVED({score}) {
   const audioRef = useRef(null);
   const audioRef1 = useRef(null);
 
-  useEffect(() => {
-      audioRef1.current = new Audio(clickSound);
-      audioRef1.current.volume = 1; 
-    }, []);
-  
     const playClickSound = () => {
       if (audioRef1.current) {
         audioRef1.current.currentTime = 0;

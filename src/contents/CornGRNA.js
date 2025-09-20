@@ -217,14 +217,28 @@ export default function CORNGRNA({ onNext, setScore }) {
   }
 
   useEffect(() => {
-  let interval;
-  if (isTimerRunning) {
-    interval = setInterval(() => {
-      setTime(prevTime => prevTime + 1);
-    }, 1000);
-  }
-  return () => clearInterval(interval);
-}, [isTimerRunning]);
+      console.log('Timer state changed - isTimerRunning:', isTimerRunning, 'Time:', time);
+    }, [isTimerRunning, time]);
+    
+      useEffect(() => {
+      console.log('Timer useEffect triggered, isTimerRunning:', isTimerRunning);
+      let interval;
+      if (isTimerRunning) {
+        console.log('Starting timer interval');
+        interval = setInterval(() => {
+          setTime(prevTime => {
+            console.log('Timer tick:', prevTime + 1);
+            return prevTime + 1;
+          });
+        }, 1000);
+      } else {
+        console.log('Timer paused');
+      }
+      return () => {
+        console.log('Clearing timer interval');
+        clearInterval(interval);
+      };
+    }, [isTimerRunning]);
 
   const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -238,8 +252,15 @@ export default function CORNGRNA({ onNext, setScore }) {
   }
 
   if (isSaved) {
-    return <CORNCUTTING hearts={hearts} time={time} setHearts={setHearts} setTime={setTime} onDead={() => setIsDead(true)} onPauseTimer={(isPaused) => setIsTimerRunning(!isPaused)}/>;
-  }
+      return <CORNCUTTING 
+        hearts={hearts} 
+        time={time} 
+        setHearts={setHearts} 
+        setTime={setTime}
+        onDead={() => setIsDead(true)} 
+        onPauseTimer={setIsTimerRunning} // Pass the setter directly
+      />;
+    }
 
     return (
       <div className="app-container">
@@ -279,7 +300,7 @@ export default function CORNGRNA({ onNext, setScore }) {
             dragElastic={0}
             dragMomentum={false}
             >
-              5′-GCGCTGAGGCTGCTAATAGA-3′
+              3'-TCGCTACCTAAGAGCTACGTGCG-5'
             </motion.div>
           </div>
 
@@ -293,7 +314,7 @@ export default function CORNGRNA({ onNext, setScore }) {
             dragElastic={0}
             dragMomentum={false}
             >
-              5′-GCGCTGAGGCTGCTAACAGA-3′
+              3’-TCGCTACCGAGCTACGTGCG-5’
             </motion.div>
           </div>
         </div>
@@ -309,7 +330,7 @@ export default function CORNGRNA({ onNext, setScore }) {
             dragMomentum={false}
             dragConstraints={isBox3Locked}
             >
-              5′-GCGCTGAGGCTGCTAACAGA-3′
+              3'-TCGCTACCTAGCTACGTGCG-5'
             </motion.div>
           </div>
         </div>
@@ -318,7 +339,7 @@ export default function CORNGRNA({ onNext, setScore }) {
               <div className = "cornmutated-region">
               </div>
           </div>
-          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GGGGCACCATGCGTGCATCGATCCATCGC<u>TGG</u>CGC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
+          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCGCCAAGCGATGGATCGATGCACGCATGGT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
       </div>
     );
 };

@@ -19,6 +19,7 @@ import CORNDEAD from "./contents/CornDead";
 import EARTH from "./contents/Earth";
 import EARTHGRNA from "./contents/EarthGRNA";
 import EARTHDEAD from "./contents/EarthDead"
+import SAMGRNAEXP from "./contents/SamGRNAExp"
 import "./styles/App.css";
 
 export default function App() {
@@ -44,7 +45,8 @@ export default function App() {
         <Route path="/dead" element={<DEAD />} />
         <Route path="/corn/dead" element={<CORNDEAD />} />
         <Route path="/save-earth" element={<EARTH />} />
-         <Route path="/earth/dead" element={<EARTHDEAD />} />
+        <Route path="/earth/dead" element={<EARTHDEAD />} />
+        <Route path="/sam/grna-exp" element={<SAMGRNAEXP />} />
       </Routes>
     </div>
   );

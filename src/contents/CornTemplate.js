@@ -1,5 +1,5 @@
 import '../styles/App.css';
-import CORNSAVED from './CornSaved'
+import CORNREPEXP from './CornRepExp';
 import { useNavigate } from "react-router-dom";
 import clickSound from '../sound/correct.mp3';
 import React, { useState, useEffect, useRef } from 'react';
@@ -24,14 +24,14 @@ export default function CORNTEMPLATE({ hearts, time, setHearts, setTime, onDead,
     }, []);
 
     useEffect(() => {
-      let interval;
-      if (isTimerRunning && !isSaved && !isDead) {
-        interval = setInterval(() => {
-          setTime(prevTime => prevTime + 1);
-        }, 1000);
-      }
-      return () => clearInterval(interval);
-    }, [isTimerRunning, isSaved, isDead]);
+      console.log('RepairTemplateChoice mounted, resuming timer');
+      onPauseTimer(true); // true = timer should RUN
+      
+      return () => {
+        console.log('RepairTemplateChoice unmounting, pausing timer');
+        onPauseTimer(false); // false = timer should PAUSE
+      };
+    }, [onPauseTimer]);
 
     const calculateScore = (hearts, time) => {
       const baseScore = hearts * 100;
@@ -230,16 +230,6 @@ export default function CORNTEMPLATE({ hearts, time, setHearts, setTime, onDead,
     }
   }
 
-  useEffect(() => {
-  let interval;
-  if (isTimerRunning) {
-    interval = setInterval(() => {
-      setTime(prevTime => prevTime + 1);
-    }, 1000);
-  }
-  return () => clearInterval(interval);
-}, [isTimerRunning]);
-
   const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -253,7 +243,7 @@ export default function CORNTEMPLATE({ hearts, time, setHearts, setTime, onDead,
 
   if (isSaved) {
     const score = calculateScore(hearts, time);
-    return <CORNSAVED score={score}/>
+    return <CORNREPEXP score={score} onPauseTimer={onPauseTimer}/>
 
   }
 
@@ -342,7 +332,7 @@ export default function CORNTEMPLATE({ hearts, time, setHearts, setTime, onDead,
               <div className = "cornmutated-region3">
               </div>
           </div>
-          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GGGGCACCATGCGTGCATCGATCCATCGC<u>TGG</u>CGC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
+          <div className = "real-dna"> 5'-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCGCCAAGCGATGGATCGATGCACGCATGGT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-3'</div>
       </div>
     );
 };

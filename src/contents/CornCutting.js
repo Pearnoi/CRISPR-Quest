@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import CORNTEMPLATE from './CornTemplate'; 
+import CORNGRNAEXP from './CornGRNAExp'; 
 import '../styles/App.css';
 import backgroundSound from '../sound/scissors.mp3';
 import { useLocation } from "react-router-dom";
@@ -9,30 +9,39 @@ export default function CUTTING({hearts, time, setHearts, setTime, onDead, onPau
   const audioRef = useRef(null);
 
   useEffect(() => {
-    audioRef.current = new Audio(backgroundSound);
-    audioRef.current.volume = 1; 
-    audioRef.current.play().catch(error => {
-      console.log('Auto-play was prevented:', error);
-    });
-    
-    const timer = setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
-      setSamStarted(true);
-    }, 5000);
-    
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-      clearTimeout(timer);
-    };
-  }, []);
+        console.log('CUTTING mounted - pausing timer');
+        // Pause timer during the cutting animation (false means timer should NOT run)
+        onPauseTimer(false);
+        
+        audioRef.current = new Audio(backgroundSound);
+        audioRef.current.volume = 1; 
+        audioRef.current.play().catch(error => {
+          console.log('Auto-play was prevented:', error);
+        });
+        
+        const timer = setTimeout(() => {
+          console.log('Cutting animation finished, moving to SAMGRNAEXP');
+          if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+          }
+          // Resume timer before transitioning
+          onPauseTimer(true);
+          setSamStarted(true);
+        }, 5000);
+        
+        return () => {
+          console.log('CUTTING unmounting');
+          if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+          }
+          clearTimeout(timer);
+        };
+      }, [onPauseTimer]);
 
   if (samStarted) {
-    return <CORNTEMPLATE hearts={hearts} time={time} setHearts={setHearts} setTime={setTime} onDead={onDead} onPauseTimer={onPauseTimer}/>;
+    return <CORNGRNAEXP hearts={hearts} time={time} setHearts={setHearts} setTime={setTime} onDead={onDead} onPauseTimer={onPauseTimer}/>;
   }
 
   return (
@@ -41,11 +50,11 @@ export default function CUTTING({hearts, time, setHearts, setTime, onDead, onPau
             <div class="dna2"> 
                 <div class="cornmutated-region2"></div>
             </div>
-            <div class="sequence">5'- GGGGCACCATGCGTGCATCGATCCATCGCTGGCGC -3'</div>
+            <div class="sequence">5'- GCGCCAAGCGATGGATCGATGCACGCATGGT -3'</div>
         </div>
 
         <img 
-        className='scissors' 
+        className='scissors3' 
         src={require('../images/scissors.gif')} 
         alt="Scissors"
         data-pin-nopin="true"

@@ -218,14 +218,28 @@ export default function GRNA({ onNext, setScore }) {
   }
 
   useEffect(() => {
-  let interval;
-  if (isTimerRunning) {
-    interval = setInterval(() => {
-      setTime(prevTime => prevTime + 1);
-    }, 1000);
-  }
-  return () => clearInterval(interval);
-}, [isTimerRunning]);
+    console.log('Timer state changed - isTimerRunning:', isTimerRunning, 'Time:', time);
+  }, [isTimerRunning, time]);
+  
+    useEffect(() => {
+    console.log('Timer useEffect triggered, isTimerRunning:', isTimerRunning);
+    let interval;
+    if (isTimerRunning) {
+      console.log('Starting timer interval');
+      interval = setInterval(() => {
+        setTime(prevTime => {
+          console.log('Timer tick:', prevTime + 1);
+          return prevTime + 1;
+        });
+      }, 1000);
+    } else {
+      console.log('Timer paused');
+    }
+    return () => {
+      console.log('Clearing timer interval');
+      clearInterval(interval);
+    };
+  }, [isTimerRunning]);
 
   const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -239,8 +253,16 @@ export default function GRNA({ onNext, setScore }) {
   }
 
   if (isSaved) {
-    return <EARTHCUTTING hearts={hearts} time={time} setHearts={setHearts} setTime={setTime} onDead={() => setIsDead(true)} onPauseTimer={(isPaused) => setIsTimerRunning(!isPaused)}/>;
+    return <EARTHCUTTING 
+      hearts={hearts} 
+      time={time} 
+      setHearts={setHearts} 
+      setTime={setTime}
+      onDead={() => setIsDead(true)} 
+      onPauseTimer={setIsTimerRunning} // Pass the setter directly
+    />;
   }
+  
 
     return (
       <div className="app-container">

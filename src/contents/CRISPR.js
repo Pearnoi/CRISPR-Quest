@@ -11,93 +11,54 @@ export default function CRISPR() {
             </button>
             <h1 style={{fontSize: '5em'}}>What is CRISPR-Cas9?</h1>
 
-            <p>Imagine DNA as an instruction book that tells every cell in your 
-                body how to work. But, sometimes it has typos: mistakes in the letters 
-                of DNA (<strong>A</strong>denosine, <strong>T</strong>hymine, <strong>G</strong>uanine, and <strong>C</strong>ytosine)
-
+            <p>Welcome, Scientist! Your mission is to perform genetic surgery. Your tools? The 
+                evolutionary CRISPR-Cas9 system. Think of it as a pair of molecular scissors (Cas9) 
+                guided by a super-smart GPS (the gRNA) that takes it to the exact spot in the genome you need to edit.
             <br></br>
             <br></br>
 
-            That’s where the new gene-editing technology “CRISPR-Cas9” comes in! 
-            <br></br>
-            <ul>
-                <li>Cas9 is like a pair of scissors that can cut DNA</li>
-                <li>CRISPR is the system that helps Cas9 know exactly where to cut</li>
-            </ul>
+            Your job is to choose the right tools for the operation. Here’s how it works:
 
             <br></br>
-            So together, CRISPR-Cas9 is like scissors for scientists to edit and change a part of the DNA sequence.
-            </p>
+            <br></br>
+            <br></br>
 
-            <hr style={{margin: '50px'}}></hr>
-
-            <h1 style={{fontSize: '5em', textAlign: 'center'}}>Guide RNA</h1>
-
-            <p>But how does Cas9 know where to cut? That’s the job of the guide RNA (gRNA)
-                <ul>
-                    <li>The guide RNA has letters (Adenosine, Uracil, Guanine, and Cytosine) 
-                        that must pair perfectly with the DNA target (Adenosine, Thymine, Guanine, and Cytosine)</li>
-                    <li>CRISPR is the system that helps Cas9 know exactly where to cut
-                        <ul>
-                            <li>In DNA, A pairs with T</li>
-                            <li>In RNA, A pairs with U</li>
-                            <li>In both DNA and RNA, C pairs with G</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <br></br>
-
-                Only when the guide RNA perfectly matches up with the DNA target, Cas9 will cut.
-                <br></br>
-                <br></br>
-                Example: 
-                <ul>
-                    <li>DNA target: ATCG </li>
-                    <li>Guide RNA: UAGC → Perfect match! Cas9 cuts. </li>
-                </ul>
-                
-                <br></br>
-
-                Wrong match: 
-                <ul>
-                    <li>DNA target: ATCG</li>
-                    <li>Guide RNA: UACC → Doesn’t fit. No cut.</li>
-                </ul>
-            </p>
-
-            <hr style={{margin: '50px'}}></hr>
-
-            <h1 style={{fontSize: '5em', textAlign: 'center'}}>Repair Template</h1>
-
-            <p>Once Cas9 cuts, the cell wants to repair the DNA. Scientists can provide a repair template: 
-                a piece of DNA that looks almost identical to the broken spot, but with typos corrected
+            <h1 style={{fontSize: '2em'}}>1. Find the Right GPS (Choose the gRNA)</h1>
+            The gRNA (guide RNA) is designed to be a perfect genetic match for one 
+            specific site on our target DNA sequence via complementary base pairing. 
+            This means, Adenine (A) pairs with Thymine (T), while Guanine (G) pairs with 
+            Cytosine (C)  . Your task is to look at the target DNA and select the correct gRNA 
+            from your toolkit. The right one will lock on perfectly!
+            <br></br>
+            <br></br>
+            Once the correct gRNA guides it to the target, the Cas9 enzyme snaps into action and 
+            makes a precise cut in the DNA. In real life, the target site also needs a special short 
+            tag called a PAM sequence for Cas9 to recognize it. For this mission, we are assuming that 
+            our gRNA has the correct PAM sequence with the target sequence, so you can focus on matching the gRNA!
             
-                <ul>
-                    <li>The repair template must also follow complementary base pairing rules</li>
-                    <li>If it fits well, the cell uses it as a puzzle piece to patch the cut → fix typos, and add new instructions to the DNA</li>
-                </ul>
+            <hr style={{margin: '50px'}}></hr> 
 
-                Example (fixing a typo):
-                <ul>
-                    <li>Original DNA (mistake): A T T G C</li>
-                    <li>Repair template: A C T G C → The middle T is corrected to C. </li>
-                </ul>
+            <h1 style={{fontSize: '2em'}}>2.  Provide the Patch (Choose the Repair Template)</h1>
+            The cut triggers the cell's repair system. This is your chance to rewrite the genetic code!
+            <br></br>
+            <br></br>
+            We will provide you with repair templates - a new piece of DNA you want to insert. 
+            This template has special homology arms (shown as …….) on each end, which match the 
+            sequences around the cut site, acting like handles that slot your new DNA into exactly 
+            the right place. Your Task is to choose the repair template with the correct and the new genetic 
+            code you want to install. In one mission, you will be tested for the understanding of how to revert 
+            back the diseased sequence to the normal, healthy sequence. 
 
-                Wrong template:
-                <ul>
-                    <li>Repair template: G G G G G → Doesn’t fit, cell rejects it.</li>
-                </ul>
-            </p>
+            <hr style={{margin: '50px'}}></hr> 
 
-            <hr style={{margin: '50px'}}></hr>
-
-            <h1 style={{fontSize: '5em', textAlign: 'center'}}>In CRISPR-Quest</h1>
-            <p>
-            <ul>
-                <li>Use the guide RNA to find the right spot for Cas9 to cut in the DNA</li>
-                <li>Then choose the correct repair template to patch it up</li>
-            </ul>
+            <h1 style={{fontSize: '2em'}}>In summary, your step-by-step missions are: </h1>
+            <ol>
+                <li>GUIDE: Choose the gRNA that is complementary to the target sequence.</li>
+                <li>REPAIR: Choose the Repair Template with the right handles (...) and the new code to fix the break correctly.</li>
+            </ol>
+            <br></br>
+            <br></br>
+            <h1 style={{fontSize: '3em', textAlign: 'center'}} >The future of this cell is in your hands. Good luck!!!</h1>
             </p>
         </div>
     )

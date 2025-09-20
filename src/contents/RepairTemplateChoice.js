@@ -1,7 +1,6 @@
-// src/contents/RepairTemplateChoice.js
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import "../styles/App.css";
-import SAVED from './SamSaved'
+import SAMREPEXP from "./SamRepExp";
 import clickSound from '../sound/click.mp3';
 import correctSound from '../sound/correct.mp3';
 
@@ -63,7 +62,7 @@ export default function RepairTemplateChoice({
     
       const playClickSound = () => {
         if (audioRef1.current) {
-          audioRef1.current.currentTime = 0; // Reset to start
+          audioRef1.current.currentTime = 0;
           audioRef1.current.play().catch(error => {
             console.log('Audio play prevented:', error);
           });
@@ -83,11 +82,15 @@ export default function RepairTemplateChoice({
   const [showSaved, setShowSaved] = useState(false);
   const [showEmpty, setShowEmpty] = useState(false);
 
-    useEffect(() => {
-    if (onPauseTimer) {
-      onPauseTimer(showSaved); 
-    }
-  }, [showSaved, onPauseTimer]);
+  useEffect(() => {
+  console.log('RepairTemplateChoice mounted, resuming timer');
+  onPauseTimer(true); // true = timer should RUN
+  
+  return () => {
+    console.log('RepairTemplateChoice unmounting, pausing timer');
+    onPauseTimer(false); // false = timer should PAUSE
+  };
+}, [onPauseTimer]);
 
   const success = selected !== null && selected === correctIndex;
 
@@ -111,7 +114,7 @@ export default function RepairTemplateChoice({
   if (showSaved) {
     playClickSound();
     const score = calculateScore(hearts, time);
-    return <SAVED score={score}/>
+    return <SAMREPEXP score={score} onPauseTimer={onPauseTimer}/>
   }
 
   /* ---------- Empty placeholder (if wrong + Next clicked) ---------- */
@@ -196,7 +199,7 @@ export default function RepairTemplateChoice({
               <div className="pixel-box bad">
                 <div style={{ fontWeight: 800, marginBottom: 6 }}>Not quite. ⚠️</div>
                 <p>
-                  This template doesn’t fix the mutation (or introduces an unintended change).
+                  This template doesn't fix the mutation (or introduces an unintended change).
                   Compare against the reference sequence on the left.
                 </p>
               </div>
@@ -270,7 +273,7 @@ export default function RepairTemplateChoice({
   );
 }
 
-function LabelBlock({ title, value, mono, hearts, time, formatTime }) {
+function LabelBlock({ title, value, mono }) {
   return (
     <div>
       <div style={{ marginBottom: 10 }}>
