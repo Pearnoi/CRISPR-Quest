@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "./static/css/main.bd6e8037.css",
+    "main.js": "./static/js/main.d2bbc1ea.js",
+    "static/media/home.mp3": "./static/media/home.5dcdf4d93c6146f258f8.mp3",
+    "static/media/scissors.mp3": "./static/media/scissors.f762ce07e0a61bc1ac7e.mp3",
+    "static/media/background.png": "./static/media/background.7e9bc854d5707b062178.png",
+    "static/media/keyboard.mp3": "./static/media/keyboard.bcafcc2f468e558a96dd.mp3",
+    "static/media/sam-unhappy.png": "./static/media/sam-unhappy.2083bb2033f6b020eb14.png",
+    "static/media/plasticbag.png": "./static/media/plasticbag.ec8910fe3ed5ed1f2047.png",
+    "static/media/earth.png": "./static/media/earth.6230a0ee8abb139e7a94.png",
+    "static/media/success.mp3": "./static/media/success.0a7b04eac2d105c2634b.mp3",
+    "static/media/bottle.png": "./static/media/bottle.70f08aec312b37d0a224.png",
+    "static/media/ig.png": "./static/media/ig.bfa24e0ed60514ec8f72.png",
+    "static/media/sam-happy.png": "./static/media/sam-happy.5de406880178d6ca1d7f.png",
+    "static/media/click.png": "./static/media/click.83f9c0b64f7ada3652c6.png",
+    "static/media/sickle.png": "./static/media/sickle.233424199f2ced339c9e.png",
+    "static/media/halo.png": "./static/media/halo.8c9c0ca16ee5f4f7ac26.png",
+    "static/media/start.png": "./static/media/start.6e4c51edb64e4303833b.png",
+    "static/media/monitor.mp3": "./static/media/monitor.a2a93b9461f413734ad7.mp3",
+    "static/media/scissors.gif": "./static/media/scissors.3edf8fa22e4932ea58ca.gif",
+    "static/media/return.png": "./static/media/return.c10c1a14e21b0e26c594.png",
+    "static/media/mascot.png": "./static/media/mascot.a920558b0888c963594b.png",
+    "static/media/healthy.png": "./static/media/healthy.bdd7748db25403677375.png",
+    "static/media/unhealthy.png": "./static/media/unhealthy.18ea13ab52c8796a27de.png",
+    "static/media/singlecorn.png": "./static/media/singlecorn.45b1b2112341b7c8d764.png",
+    "static/media/correct.mp3": "./static/media/correct.ed3894f877249fd39ddf.mp3",
+    "static/media/click.mp3": "./static/media/click.1b79e7a4ee61964ed145.mp3",
+    "index.html": "./index.html",
+    "main.bd6e8037.css.map": "./static/css/main.bd6e8037.css.map",
+    "main.d2bbc1ea.js.map": "./static/js/main.d2bbc1ea.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd6e8037.css",
+    "static/js/main.d2bbc1ea.js"
+  ]
+}
