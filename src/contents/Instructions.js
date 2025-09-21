@@ -34,19 +34,14 @@ export default function INSTRUCTIONS() {
 
             <h1 style={{fontSize: '5em', textAlign: 'center'}}>How To Play?</h1>
             <p>
-            <strong>Step 1</strong>: Identify the mutation from a sequence of DNA bases (A, T, C, G). The mutated region will be highlighted in red color. 
-            Make sure you study this sequence carefully. 
-            <br></br>
-            <br></br>
-            <strong>Step 2</strong>: Select your guide RNA (gRNA) that is perfectly complementary with the mutated DNA sequence and drag it 
+            <strong>Step 1</strong>: Select your guide RNA (gRNA) that is perfectly complementary with the mutated DNA sequence and drag it 
             to the targeted mutation site. Remember, A pairs with U, and C pairs with G. 
             <br></br>
             <br></br>
-            <strong>Step 3</strong>: Choose the repair template once Cas9 makes the cut to repair the DNA. It should be identical to 
-            the coding strand (in step 1) but without mutation. This healthy blueprint will rewrite the DNA sequence correctly. 
+            <strong>Step 2</strong>: Choose the repair template once Cas9 makes the cut to repair the DNA. It should contain the homology arms. 
+            For mission 1, aside from homology arms, you need to choose the sequence that can revert back the mutation. 
             <br></br>
             <br></br>
-            No matter which mission you choose, the gene-editing process is the same. You can choose the other missions once you complete one mission. Follow these steps to succeed!
             </p>
 
             <hr style={{margin: '50px'}}></hr>

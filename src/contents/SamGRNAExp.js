@@ -29,7 +29,7 @@ export default function SAMGRNAEXP({hearts, time, setHearts, onDead, onPauseTime
             <button className="ex" onClick={handleNextClick}>
             <u>Next</u>
             </button>
-            <h4 style={{fontSize: '2em', textAlign: 'center', marginTop: '20px', color: 'blue'}}>Targeted DNA strand: 5’- GTGGAGAAGTCTGCCGTTAC -3’ </h4> 
+            <h4 style={{fontSize: '2em', textAlign: 'center', marginTop: '20px', color: 'blue'}}>Targeted DNA strand: 5’- <u>GTG</u>GAGAAGTCTGCCGTTAC -3’ </h4> 
             <p>
                <p><strong>Explanation</strong></p> 
                 One of the reasons for sickle cell anemia is a point mutation of A to T in GAG codon 
